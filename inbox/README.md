@@ -1,6 +1,6 @@
 # Inbox
 
-A drop zone for existing materials before they are sorted into a World. Put files here as they
+A drop zone for existing materials before they are sorted into a region. Put files here as they
 are, then record them in the inventory below.
 
 ## How to add materials
@@ -13,8 +13,8 @@ are, then record them in the inventory below.
 
 ## Inventory
 
-| Item | Type | Topic / World | Grade band | Status | Notes |
+| Item | Type | Topic / Area | Grade band | Status | Notes |
 |---|---|---|---|---|---|
 | | | | | new | |
 
-Status values: `new` → `reviewed` → `converted` (moved into a World) or `link-only`.
+Status values: `new` → `reviewed` → `converted` (moved into an area) or `link-only`.

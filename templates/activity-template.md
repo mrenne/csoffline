@@ -1,6 +1,6 @@
 ---
 title: "Activity title"
-world: data-science
+area: data-science            # folder name under areas/
 grade_band: [6-8, 9-12]
 duration_minutes: 20
 type: interactive               # interactive | simulation | game | challenge

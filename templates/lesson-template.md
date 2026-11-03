@@ -1,10 +1,10 @@
 ---
 title: "Lesson title"
-world: data-science
+area: data-science            # folder name under areas/
 grade_band: [6-8, 9-12]        # 6-8, 9-12, or both
 duration_minutes: 50
 format: plugged                 # plugged | unplugged | hybrid
-big_ideas: []                   # from the World README
+big_ideas: []                   # from the area README
 standards: []                   # e.g., CSTA 2-DA-08
 prerequisites: []
 materials: []                   # links to slides, handouts, datasets

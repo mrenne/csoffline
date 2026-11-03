@@ -1,6 +1,6 @@
 # Resource entry template
 
-Copy this block into a World's `resources/links.md` for each external resource.
+Copy this block into an area's `resources/links.md` for each external resource.
 
 ```markdown
 ### Resource title

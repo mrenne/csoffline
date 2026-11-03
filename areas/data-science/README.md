@@ -1,13 +1,35 @@
-# Data Science World
+# Data Science
 
-> Placeholder name. Status: **planning**. Big ideas and the progression below are a first draft
-> to be revised once existing materials are inventoried.
+> A region of Computation Quests. Status: **planning**. Big ideas and the progression below
+> are a first draft to be revised once existing materials are inventoried.
+> See the [Data Science map](map/index.html).
 
 ## Overview
 
 Students learn to ask questions that data can answer. They collect, clean, and explore data,
 build visualizations and simple models, and think critically about where data comes from and
 who it affects.
+
+## Places
+
+The [Data Science map](map/index.html) is a close-up of the region's spot on the Computation Quests map, on
+the west coast. A trail links the places in the order of the data investigation cycle, crosses the
+river, and leaves east toward Ethics and Impacts.
+
+| Place | Step | Concept |
+|---|---|---|
+| Asking Questions | Ask | Statistical questions |
+| Sampling | Sample | Samples, populations, and sampling bias |
+| Data Collection | Collect | Collecting data and where it comes from |
+| Outliers | Question | Outliers: error or discovery? |
+| Data Cleaning | Clean | Spotting and fixing messy data |
+| Organizing Data | Organize | Rows, columns, and data types |
+| Exploring Data | Explore | Summaries, patterns, and relationships |
+| Visualization | Visualize | Choosing charts and spotting misleading ones |
+| Modeling | Model | Building and testing models |
+| Prediction | Predict | Predictions and uncertainty |
+| Interpreting Results | Interpret | Claims backed by evidence |
+| Privacy and Fairness | Reflect | Privacy, consent, and fairness in data |
 
 ## Big ideas (draft)
 

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computation Quests Map</title>
+<style>
+  :root {
+    --bg: #2f3a4b;
+    --panel: #f3e6c4;
+    --panel-edge: #8a6a3e;
+    --ink: #3a2618;
+    --muted: #6d5640;
+    --accent: #b5482f;
+    --focus: #ffd45c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 Georgia, "Times New Roman", serif;
+  }
+  header { padding: 16px; text-align: center; color: var(--panel); }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .02em; }
+  header p { margin: 4px 0 0; opacity: .85; }
+  main {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 16px 32px;
+  }
+  .map {
+    position: relative;
+    flex: 0 1 872px;
+    min-width: 0;
+    line-height: 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .4);
+  }
+  .map img { width: 100%; height: auto; image-rendering: pixelated; }
+  .spot {
+    position: absolute;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .spot:hover, .spot.active { background: rgba(255, 230, 150, .3); }
+  .spot:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  aside {
+    position: sticky;
+    top: 16px;
+    flex: 0 0 340px;
+    background: var(--panel);
+    border: 3px solid var(--panel-edge);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+  .tag {
+    display: inline-block;
+    font: bold .72rem/1 system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 3px;
+    background: var(--accent);
+  }
+  aside h2 { margin: 10px 0 8px; font-size: 1.45rem; }
+  aside h3 { margin: 16px 0 6px; font: 700 .8rem/1 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  ul.topics { margin: 0; padding-left: 1.1em; }
+  .go {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 12px;
+    background: var(--ink);
+    color: var(--panel);
+    border-radius: 4px;
+    text-decoration: none;
+    font: 600 .9rem/1 system-ui, sans-serif;
+  }
+  .go:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .soon { margin-top: 14px; font-size: .9rem; color: var(--muted); }
+  nav.regions { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--panel-edge); }
+  nav.regions ol { margin: 0; padding-left: 1.3em; }
+  nav.regions button {
+    font: inherit;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: underline dotted;
+  }
+  @media (max-width: 960px) {
+    main { flex-direction: column; align-items: center; }
+    .map { flex: none; width: 100%; max-width: 872px; }
+    aside { position: static; width: 100%; max-width: 872px; flex: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Computation Quests</h1>
+  <p>Select a region on the map.</p>
+</header>
+<main>
+  <div class="map" id="map">
+    <img src="world.png" width="872" height="1252"
+      alt="Pixel-art map of Computation Quests: a continent divided into regions for AI Literacy, Data Science, Algorithms and Coding, Ethics and Impacts, and Computational Thinking, with Cybersecurity on an island to the west.">
+  </div>
+  <aside aria-live="polite">
+    <div id="detail">
+      <span class="tag">Welcome</span>
+      <h2>Computation Quests</h2>
+      <p>Each region of the map covers one area of computer science. Begin in
+        <strong>Computational Thinking</strong> in the south, then follow the roads. They all
+        meet in <strong>Ethics and Impacts</strong> at the center.</p>
+    </div>
+    <nav class="regions" aria-label="All regions">
+      <h3>Regions</h3>
+      <ol id="list"></ol>
+    </nav>
+  </aside>
+</main>
+<script src="world-data.js"></script>
+<script>
+  const data = window.MAP_DATA;
+  const map = document.getElementById('map');
+  const detail = document.getElementById('detail');
+  const list = document.getElementById('list');
+  const spots = {};
+  document.getElementById('title').textContent = data.title;
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+
+  function show(id) {
+    const r = data.regions.find(x => x.id === id);
+    const topics = el('ul', 'topics');
+    r.topics.forEach(t => topics.append(el('li', null, t)));
+    const parts = [];
+    if (r.start) parts.push(el('span', 'tag', 'Start here'));
+    parts.push(el('h2', null, r.name), el('p', null, r.text), el('h3', null, 'Topics'), topics);
+    if (r.link) {
+      const go = el('a', 'go', 'Open the ' + r.name + ' map');
+      go.href = r.link;
+      parts.push(go);
+    } else {
+      parts.push(el('p', 'soon', 'Lessons and a detailed map for this region are coming soon.'));
+    }
+    detail.replaceChildren(...parts);
+    Object.values(spots).forEach(s => s.classList.remove('active'));
+    spots[id].classList.add('active');
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+
+  data.regions.forEach(r => {
+    const [x0, y0, x1, y1] = r.box;
+    const b = el('button', 'spot');
+    b.style.left = (x0 / data.width * 100) + '%';
+    b.style.top = (y0 / data.height * 100) + '%';
+    b.style.width = ((x1 - x0) / data.width * 100) + '%';
+    b.style.height = ((y1 - y0) / data.height * 100) + '%';
+    b.setAttribute('aria-label', r.name);
+    b.title = r.name;
+    b.addEventListener('click', () => show(r.id));
+    map.append(b);
+    spots[r.id] = b;
+
+    const li = el('li');
+    const lb = el('button', null, r.name);
+    lb.addEventListener('click', () => show(r.id));
+    li.append(lb);
+    list.append(li);
+  });
+
+  function fromHash() {
+    const id = location.hash.slice(1);
+    if (spots[id]) show(id);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+</script>
+</body>
+</html>

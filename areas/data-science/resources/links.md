@@ -1,6 +1,6 @@
 # Data Science resources
 
-External links, GitHub repos, datasets, and readings for the Data Science World. Use the format
+External links, GitHub repos, datasets, and readings for the Data Science region. Use the format
 in [templates/resource-entry-template.md](../../../templates/resource-entry-template.md).
 
 ## Datasets
