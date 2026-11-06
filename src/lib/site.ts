@@ -1,7 +1,7 @@
 // Site-wide constants and helpers.
 
 export const SITE = {
-  name: 'CS Worlds',
+  name: 'CS Worlds “Unplugged”',
   description: 'Explore computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged games.',
   author: 'Mike Renne',
   repo: 'https://github.com/mrenne/csworlds',

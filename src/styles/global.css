@@ -100,6 +100,7 @@ a { color: inherit; text-underline-offset: 3px; }
 .site-header .wrap { display: flex; align-items: center; gap: 28px; min-height: 68px; flex-wrap: wrap; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--white); text-decoration: none; font: 700 1.3rem/1 var(--font-display); }
 .brand svg { width: 34px; height: 34px; flex: none; }
+.brand-q { color: var(--orange-bright); }
 .site-nav { flex: 1; }
 .site-nav ul { display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; flex-wrap: wrap; }
 .site-nav a { display: block; padding: 8px 12px; border-radius: 999px; color: var(--white); text-decoration: none; font-weight: 700; font-size: .95rem; }

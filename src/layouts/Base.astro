@@ -11,7 +11,7 @@ import { SITE, url } from '../lib/site';
 
 interface Props { title?: string; description?: string }
 const { title, description = SITE.description } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · Unplugged computer science`;
+const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 
 const nav = [
   { label: 'Worlds', href: url('worlds/') },
@@ -38,7 +38,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href={url('')}><Logo />{SITE.name}</a>
+      <a class="brand" href={url('')}><Logo /><span>CS Worlds <span class="brand-q">“Unplugged”</span></span></a>
       <nav class="site-nav" aria-label="Site">
         <ul>
           {nav.map((item) => (
@@ -56,7 +56,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
     <div class="wrap">
       <div class="cols">
         <div>
-          <a class="brand" href={url('')}><Logo />{SITE.name}</a>
+          <a class="brand" href={url('')}><Logo /><span>CS Worlds <span class="brand-q">“Unplugged”</span></span></a>
           <p style="margin-top:14px;max-width:34ch">Computer science through unplugged games. Free, with no accounts and no student data.</p>
         </div>
         <div>
