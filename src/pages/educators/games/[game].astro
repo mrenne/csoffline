@@ -1,0 +1,95 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Facts from '../../../components/Facts.astro';
+import GameCard from '../../../components/GameCard.astro';
+import { site, printableUrl, type Game } from '../../../lib/data';
+import { url, GAME_TYPE } from '../../../lib/site';
+
+export async function getStaticPaths() {
+  const s = await site();
+  return s.games.map((g) => ({ params: { game: g.id }, props: { game: g } }));
+}
+const { game } = Astro.props as { game: Game };
+const s = await site();
+const guide = s.guide(game.id);
+const Guide = guide ? (await render(guide)).Content : null;
+const world = s.world(game.data.world.id);
+const concepts = s.gameConcepts(game);
+const topics = s.gameTopics(game);
+const pairs = s.pairsWith(game).slice(0, 2);
+const PAPER: Record<string, string> = { letter: 'Letter', a4: 'A4', both: 'Letter and A4' };
+const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', both: 'Color or black and white' };
+---
+<Base title={`${game.data.name}: educator guide`} description={`How to run ${game.data.name}: setup, printables, debrief, and standards.`}>
+  <PageHead
+    eyebrow={`Educator guide · ${GAME_TYPE[game.data.game_type]}`}
+    title={game.data.name}
+    lead={game.data.summary}
+    crumbs={[{ label: 'Educators', href: url('educators/') }, { label: game.data.name }]}
+  >
+    <p style="margin-top:24px"><a class="btn light small" href={url(`games/${game.id}/`)}>See the student page</a></p>
+  </PageHead>
+  <section class="on-paper band">
+    <div class="wrap layout">
+      <div>
+        <div class="card section-card">
+          <h2 style="font-size:1.5rem">Printables</h2>
+          {game.data.printables.length === 0 && <p class="note">Printables for this game have not been added yet.</p>}
+          <ul class="stack">
+            {game.data.printables.map((p) => (
+              <li class="row-link download">
+                <span><strong>{p.title}</strong><span>{PAPER[p.paper]} · {COLOR[p.color]} · {p.copies}</span></span>
+                <a class="btn small" href={printableUrl(game, p.file)} download>Download PDF</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <article class="card prose section-card" style="max-width:none">
+          {Guide ? <Guide /> : <p class="note">The educator guide for this game has not been written yet.</p>}
+        </article>
+        {game.data.variants.length > 0 && (
+          <div class="card section-card">
+            <h2 style="font-size:1.5rem">Variants</h2>
+            <ul class="stack">
+              {game.data.variants.map((v) => <li><strong>{v.name}.</strong> {v.summary}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <aside>
+        <div class="card">
+          <h2 style="font-size:1.25rem">At a glance</h2>
+          <Facts game={game} educator />
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Teaches</h2>
+          <ul class="chips" style="margin-bottom:14px">
+            {concepts.map((c) => <li><a class="chip" href={url(`concepts/${c.id}/`)}>{c.data.name}</a></li>)}
+          </ul>
+          <p class="meta" style="margin:0">Topics: {topics.map((t) => t.data.name).join(', ')}</p>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Standards</h2>
+          {game.data.standards.length ? (
+            <ul class="chips">{game.data.standards.map((code) => <li class="chip">{code}</li>)}</ul>
+          ) : <p style="margin:0">Not listed yet.</p>}
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">World</h2>
+          <a class="row-link" href={url(`worlds/${world.id}/`)}><span><strong>{world.data.name}</strong><span>{world.data.tagline}</span></span></a>
+        </div>
+        <p class="meta">License: {game.data.license}{game.data.credits ? ` · ${game.data.credits}` : ''}</p>
+      </aside>
+    </div>
+  </section>
+  {pairs.length > 0 && (
+    <section class="on-orange band">
+      <div class="wrap">
+        <div class="band-head"><span class="eyebrow">Pairs well with</span><h2>Games that share these ideas</h2></div>
+        <div class="grid two">{pairs.map((g) => <GameCard game={g} educator />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

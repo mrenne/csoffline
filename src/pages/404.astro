@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/site';
+---
+<Base title="Page not found">
+  <section class="on-navy band" style="text-align:center;padding:120px 0">
+    <div class="wrap">
+      <span class="pill">404</span>
+      <h1 style="margin:22px auto 16px">Lost between worlds</h1>
+      <p class="lead" style="margin:0 auto 32px;max-width:44ch">That page could not be found. It may have moved, or the address may be mistyped.</p>
+      <p><a class="btn" href={url('')}>Back home</a></p>
+    </div>
+  </section>
+</Base>

@@ -1,2 +1,5 @@
 LaPetiteTile_Maps/
 __pycache__/
+node_modules/
+dist/
+.astro/

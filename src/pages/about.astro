@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { SITE } from '../lib/site';
+---
+<Base title="About" description="What CS Worlds is, how it works, and how it is licensed.">
+  <PageHead eyebrow="About" title="About CS Worlds" lead="Computer science through unplugged games, for grades 6–12." />
+  <section class="on-paper band">
+    <div class="wrap">
+      <article class="card prose" style="margin:0 auto">
+        <h2>What it is</h2>
+        <p>CS Worlds is a free collection of unplugged games about computer science, computational
+          thinking, data science, AI literacy, cybersecurity, and ethics. Each game is set in a world
+          with its own story and rules, and is played with paper and cards. This website is where you
+          find the games, learn to play them, print what you need, and explore the ideas behind them.</p>
+
+        <h2>Privacy</h2>
+        <p>There are no accounts, cookies, or analytics, and the site loads nothing from other
+          services. Nobody, student or teacher, gives any personal information to use it.</p>
+
+        <h2 id="license">License</h2>
+        <p>Unless otherwise noted, the content is licensed under the
+          <a href={SITE.license.url} rel="license">Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+          International License</a>. You may copy, adapt, and share it for noncommercial purposes if you
+          give credit and share your adaptations under the same license.</p>
+
+        <h2>Who makes it</h2>
+        <p>CS Worlds is designed by {SITE.author}, a computer science educator and designer. The
+          project is developed in the open on <a href={SITE.repo}>GitHub</a>.</p>
+      </article>
+    </div>
+  </section>
+</Base>

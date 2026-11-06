@@ -1,0 +1,102 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import GameCard from '../../components/GameCard.astro';
+import { site } from '../../lib/data';
+import { GAME_TYPE } from '../../lib/site';
+
+const s = await site();
+const concepts = s.concepts.filter((c) => s.gamesFor(c).length);
+const types = [...new Set(s.games.map((g) => g.data.game_type))];
+---
+<Base title="Educators" description="Find an unplugged CS Worlds game by topic, concept, grade, time, or group size.">
+  <PageHead eyebrow="For educators" title="Game catalog"
+    lead="Every game is unplugged and free, with a facilitation guide and printables. Filter by what you need to teach." />
+  <section class="on-paper band">
+    <div class="wrap">
+      <form class="filters" id="filters" aria-label="Filter games" hidden>
+        <label>Topic
+          <select name="topic">
+            <option value="">All topics</option>
+            {s.topics.map((t) => <option value={t.id}>{t.data.name}</option>)}
+          </select>
+        </label>
+        <label>Concept
+          <select name="concept">
+            <option value="">All concepts</option>
+            {concepts.map((c) => <option value={c.id}>{c.data.name}</option>)}
+          </select>
+        </label>
+        <label>Grades
+          <select name="grades">
+            <option value="">All grades</option>
+            <option value="6-8">6–8</option>
+            <option value="9-12">9–12</option>
+          </select>
+        </label>
+        <label>Time
+          <select name="time">
+            <option value="">Any length</option>
+            <option value="30">Up to 30 minutes</option>
+            <option value="50">Up to 50 minutes</option>
+          </select>
+        </label>
+        <label>Type
+          <select name="type">
+            <option value="">All types</option>
+            {types.map((t) => <option value={t}>{GAME_TYPE[t]}</option>)}
+          </select>
+        </label>
+        <output id="count" aria-live="polite"></output>
+      </form>
+      <ul class="grid two" id="results" style="list-style:none;margin:0;padding:0">
+        {s.games.map((g) => (
+          <li
+            data-topics={s.gameTopics(g).map((t) => t.id).join(' ')}
+            data-concepts={g.data.concepts.map((c) => c.id).join(' ')}
+            data-grades={g.data.grade_bands.join(' ')}
+            data-minutes={g.data.minutes.min}
+            data-type={g.data.game_type}
+          ><GameCard game={g} educator /></li>
+        ))}
+      </ul>
+      <p id="none" class="note" hidden>No games match those filters yet.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Filters are an enhancement: without JavaScript every game is listed.
+  const form = document.getElementById('filters') as HTMLFormElement;
+  const items = [...document.querySelectorAll<HTMLLIElement>('#results > li')];
+  const count = document.getElementById('count')!;
+  const none = document.getElementById('none')!;
+  form.hidden = false;
+
+  const params = new URLSearchParams(location.search);
+  for (const el of form.elements) {
+    const s = el as HTMLSelectElement;
+    if (s.name && params.has(s.name)) s.value = params.get(s.name)!;
+  }
+
+  function apply() {
+    const f = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    let shown = 0;
+    for (const li of items) {
+      const d = li.dataset;
+      const ok = (!f.topic || d.topics!.split(' ').includes(f.topic))
+        && (!f.concept || d.concepts!.split(' ').includes(f.concept))
+        && (!f.grades || d.grades!.split(' ').includes(f.grades))
+        && (!f.time || Number(d.minutes) <= Number(f.time))
+        && (!f.type || d.type === f.type);
+      li.hidden = !ok;
+      if (ok) shown++;
+    }
+    count.textContent = `${shown} ${shown === 1 ? 'game' : 'games'}`;
+    none.hidden = shown > 0;
+    const q = new URLSearchParams(Object.entries(f).filter(([, v]) => v));
+    history.replaceState(null, '', q.toString() ? `?${q}` : location.pathname);
+  }
+  form.addEventListener('change', apply);
+  apply();
+</script>

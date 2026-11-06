@@ -1,0 +1,91 @@
+---
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/manrope/500.css';
+import '@fontsource/manrope/600.css';
+import '@fontsource/manrope/700.css';
+import '@fontsource/manrope/800.css';
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import { SITE, url } from '../lib/site';
+
+interface Props { title?: string; description?: string }
+const { title, description = SITE.description } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · Unplugged computer science`;
+
+const nav = [
+  { label: 'Worlds', href: url('worlds/') },
+  { label: 'Concepts', href: url('concepts/') },
+  { label: 'Educators', href: url('educators/') },
+  { label: 'About', href: url('about/') },
+];
+const path = Astro.url.pathname;
+const current = (href: string) => path === href || (href !== url('') && path.startsWith(href))
+  || (href === url('worlds/') && path.startsWith(url('games/')))
+  || (href === url('concepts/') && path.startsWith(url('topics/')));
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{pageTitle}</title>
+  <meta name="description" content={description}>
+  <link rel="icon" href={url('favicon.svg')} type="image/svg+xml">
+  <meta name="theme-color" content="#0f1e42">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href={url('')}><Logo />{SITE.name}</a>
+      <nav class="site-nav" aria-label="Site">
+        <ul>
+          {nav.map((item) => (
+            <li><a href={item.href} aria-current={current(item.href) ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <a class="btn small header-cta" href={url('worlds/')}>Start exploring</a>
+    </div>
+  </header>
+  <main id="content">
+    <slot />
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <a class="brand" href={url('')}><Logo />{SITE.name}</a>
+          <p style="margin-top:14px;max-width:34ch">Computer science through unplugged games. Free, with no accounts and no student data.</p>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <ul>
+            <li><a href={url('worlds/')}>Worlds</a></li>
+            <li><a href={url('concepts/')}>Concepts</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Educators</h2>
+          <ul>
+            <li><a href={url('educators/')}>Game catalog</a></li>
+            <li><a href={url('about/#license')}>License</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Project</h2>
+          <ul>
+            <li><a href={url('about/')}>About</a></li>
+            <li><a href={SITE.repo}>GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">
+        <span>{SITE.name} by {SITE.author}.</span>
+        <span>Content licensed <a href={SITE.license.url} rel="license">{SITE.license.name}</a>.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

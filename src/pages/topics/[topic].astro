@@ -1,0 +1,41 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import GameCard from '../../components/GameCard.astro';
+import { site, type Topic } from '../../lib/data';
+import { url } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const s = await site();
+  return s.topics.map((t) => ({ params: { topic: t.id }, props: { topic: t } }));
+}
+const { topic } = Astro.props as { topic: Topic };
+const s = await site();
+const { Content } = await render(topic);
+const concepts = s.conceptsFor(topic);
+const games = s.games.filter((g) => s.gameTopics(g).some((t) => t.id === topic.id));
+---
+<Base title={topic.data.name} description={topic.data.summary}>
+  <PageHead eyebrow="Topic" title={topic.data.name} lead={topic.data.summary}
+    crumbs={[{ label: 'Concepts', href: url('concepts/') }, { label: topic.data.name }]} />
+  <section class="on-paper band">
+    <div class="wrap layout">
+      <article class="card prose" style="max-width:none"><Content /></article>
+      <aside>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Concepts</h2>
+          {concepts.length ? (
+            <ul class="stack">{concepts.map((c) => <li><a class="row-link" href={url(`concepts/${c.id}/`)}><span><strong>{c.data.name}</strong></span></a></li>)}</ul>
+          ) : <p style="margin:0">Coming soon.</p>}
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="on-orange band">
+    <div class="wrap">
+      <div class="band-head"><span class="eyebrow">Games</span><h2>{games.length ? `${topic.data.name} games` : 'Games coming soon'}</h2></div>
+      <div class="grid two">{games.map((g) => <GameCard game={g} />)}</div>
+    </div>
+  </section>
+</Base>

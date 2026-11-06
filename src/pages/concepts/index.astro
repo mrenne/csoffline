@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import TopicIcon from '../../components/TopicIcon.astro';
+import { site } from '../../lib/data';
+import { url } from '../../lib/site';
+
+const s = await site();
+---
+<Base title="Concepts" description="The ideas behind every CS Worlds game, grouped by topic.">
+  <PageHead eyebrow="Ideas" title="Concepts" lead="The ideas behind the games, grouped by topic. Each one shows how the idea works in real computers, and which games teach it." />
+  <section class="on-paper band">
+    <div class="wrap grid two">
+      {s.topics.map((t) => {
+        const list = s.conceptsFor(t);
+        return (
+          <section class="card">
+            <div class={`tile tint-${t.data.color}`}><TopicIcon name={t.data.icon} /></div>
+            <h2 style="font-size:1.5rem"><a href={url(`topics/${t.id}/`)}>{t.data.name}</a></h2>
+            {list.length ? (
+              <ul class="stack">
+                {list.map((c) => (
+                  <li><a class="row-link" href={url(`concepts/${c.id}/`)}><span><strong>{c.data.name}</strong><span>{c.data.student_summary}</span></span></a></li>
+                ))}
+              </ul>
+            ) : <p class="meta">Concepts for this topic are coming soon.</p>}
+          </section>
+        );
+      })}
+    </div>
+  </section>
+</Base>

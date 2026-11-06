@@ -1,0 +1,17 @@
+---
+import type { Game } from '../lib/data';
+import { GAME_TYPE, GROUPING, range, grades } from '../lib/site';
+
+interface Props { game: Game; educator?: boolean }
+const { game, educator = false } = Astro.props;
+const d = game.data;
+---
+<dl class="facts">
+  <dt>Type</dt><dd>{GAME_TYPE[d.game_type]}</dd>
+  <dt>Players</dt><dd>{range(d.players)} per game</dd>
+  <dt>Groups</dt><dd>{d.grouping.map((g) => GROUPING[g]).join(', ')}</dd>
+  <dt>Time</dt><dd>{range(d.minutes, 'minutes')}</dd>
+  <dt>Grades</dt><dd>{grades(d.grade_bands).replaceAll('Grades ', '')}</dd>
+  {educator && <><dt>Prep</dt><dd>{d.prep_minutes} minutes</dd></>}
+  {educator && d.materials.length > 0 && <><dt>Also need</dt><dd>{d.materials.join('; ')}</dd></>}
+</dl>

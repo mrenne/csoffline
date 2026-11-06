@@ -1,0 +1,72 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import GameCard from '../../components/GameCard.astro';
+import { site, sections, type Concept } from '../../lib/data';
+import { url } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const s = await site();
+  return s.concepts.map((c) => ({ params: { concept: c.id }, props: { concept: c } }));
+}
+const { concept } = Astro.props as { concept: Concept };
+const s = await site();
+await render(concept);
+const parts = sections(concept.rendered?.html ?? '');
+const student = parts['whats-really-going-on'];
+const educator = ['background', 'misconceptions'].map((k) => parts[k]).filter(Boolean);
+const games = s.gamesFor(concept);
+const topics = s.conceptTopics(concept);
+const related = concept.data.related.map((r) => s.concept(r.id));
+---
+<Base title={concept.data.name} description={concept.data.student_summary}>
+  <PageHead
+    eyebrow={topics.map((t) => t.data.name).join(' · ')}
+    title={concept.data.name}
+    lead={concept.data.student_summary}
+    crumbs={[{ label: 'Concepts', href: url('concepts/') }, { label: concept.data.name }]}
+  />
+  <section class="on-paper band">
+    <div class="wrap layout">
+      <div>
+        <article class="card prose section-card" style="max-width:none">
+          <h2>What's really going on</h2>
+          {student ? <Fragment set:html={student.html} /> : <p class="note">This explanation has not been written yet.</p>}
+        </article>
+        {educator.length > 0 && (
+          <details class="card prose section-card" style="max-width:none">
+            <summary><strong style="font-family:var(--font-display);font-size:1.3rem">For educators</strong></summary>
+            {educator.map((p) => <><h3>{p.title}</h3><Fragment set:html={p.html} /></>)}
+          </details>
+        )}
+      </div>
+      <aside>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Topics</h2>
+          <ul class="chips">{topics.map((t) => <li><a class="chip" href={url(`topics/${t.id}/`)}>{t.data.name}</a></li>)}</ul>
+        </div>
+        {related.length > 0 && (
+          <div class="card">
+            <h2 style="font-size:1.25rem">Related ideas</h2>
+            <ul class="chips">{related.map((c) => <li><a class="chip" href={url(`concepts/${c.id}/`)}>{c.data.name}</a></li>)}</ul>
+          </div>
+        )}
+      </aside>
+    </div>
+  </section>
+  <section class="on-orange band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="eyebrow">Play it</span>
+        <h2>{games.length ? `Games about ${concept.data.name.toLowerCase()}` : 'Games coming soon'}</h2>
+      </div>
+      <div class="grid two">{games.map((g) => <GameCard game={g} />)}</div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  details summary { cursor: pointer; list-style-position: outside; }
+  details[open] summary { margin-bottom: 8px; }
+</style>

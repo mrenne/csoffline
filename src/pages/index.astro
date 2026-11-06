@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import TopicIcon from '../components/TopicIcon.astro';
+import GameCard from '../components/GameCard.astro';
+import { site } from '../lib/data';
+import { url } from '../lib/site';
+
+const s = await site();
+---
+<Base>
+  <section class="on-navy band hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill">Unplugged · Grades 6–12 · Free</span>
+        <h1>Computer science, one <span class="hl">world</span> at a time.</h1>
+        <p class="lead">Explore worlds where you play unplugged games, then find out how the same
+          ideas work inside real computers, data, and AI.</p>
+        <div class="actions">
+          <a class="btn" href={url('worlds/')}>Explore the worlds →</a>
+          <a class="btn light" href={url('educators/')}>For educators</a>
+        </div>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        <div class="deck">
+          <div class="pcard c3"></div>
+          <div class="pcard c2"></div>
+          <div class="pcard c1"><TopicIcon name="spark" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="on-orange band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="eyebrow">Six topics</span>
+        <h2>Everything connects</h2>
+        <p>Every game teaches ideas from one or more topics, and every idea shows up in more than one world.</p>
+      </div>
+      <div class="grid">
+        {s.topics.map((t, i) => (
+          <a class={`card ${i % 2 ? 'tilt-r' : 'tilt-l'}`} href={url(`topics/${t.id}/`)}>
+            <div class={`tile tint-${t.data.color}`}><TopicIcon name={t.data.icon} /></div>
+            <h3>{t.data.name}</h3>
+            <p>{t.data.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="on-navy band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="eyebrow">The worlds</span>
+        <h2>Pick a world. Play a game.</h2>
+        <p>Each world is a place with its own story and rules, and the games are played inside it, with cards, paper, and the people around you.</p>
+      </div>
+      <div class="grid two">
+        {s.worlds.map((w) => (
+          <a class="card" href={url(`worlds/${w.id}/`)}>
+            <span class="eyebrow accent">World</span>
+            <h3>{w.data.name}</h3>
+            <p>{w.data.tagline}</p>
+            <p class="meta">{s.gamesInWorld(w).length} {s.gamesInWorld(w).length === 1 ? 'game' : 'games'} · {s.worldConcepts(w).map((c) => c.data.name).join(', ')}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="on-orange band">
+    <div class="wrap">
+      <div class="band-head">
+        <span class="eyebrow">How it works</span>
+        <h2>Play it. Then see what's really going on.</h2>
+      </div>
+      <div class="grid">
+        <div class="card tilt-l">
+          <div class="tile tint-orange"><TopicIcon name="puzzle" /></div>
+          <h3>Play unplugged</h3>
+          <p>Every game is played with paper and cards. No devices, accounts, or Wi-Fi.</p>
+        </div>
+        <div class="card tilt-r">
+          <div class="tile tint-sky"><TopicIcon name="chip" /></div>
+          <h3>See the real thing</h3>
+          <p>Each idea has a page that shows how it works in real computers, apps, and AI.</p>
+        </div>
+        <div class="card tilt-l">
+          <div class="tile tint-mint"><TopicIcon name="chart" /></div>
+          <h3>Teach it</h3>
+          <p>Educators get a guide, printables, and standards for every game.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {s.games.length > 0 && (
+    <section class="on-paper band">
+      <div class="wrap">
+        <div class="band-head">
+          <span class="eyebrow accent">Games</span>
+          <h2>Ready to play</h2>
+        </div>
+        <div class="grid two">
+          {s.games.map((g) => <GameCard game={g} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="on-navy band">
+    <div class="wrap" style="text-align:center">
+      <h2>Bring a world to your classroom</h2>
+      <p class="lead" style="max-width:56ch;margin:0 auto 28px">Find a game by topic, idea, grade, or time, then print everything you need.</p>
+      <div class="actions" style="justify-content:center">
+        <a class="btn" href={url('educators/')}>Open the game catalog</a>
+        <a class="btn light" href={url('concepts/')}>Browse the ideas</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 72px 0 96px; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+  .hero h1 { margin: 22px 0 18px; max-width: 13ch; }
+  .hl { color: var(--orange-bright); position: relative; white-space: nowrap; }
+  .hl::after {
+    content: ''; position: absolute; left: 4%; right: 4%; bottom: -.08em; height: .14em;
+    border-radius: 999px; background: var(--orange); transform: rotate(-1.5deg);
+  }
+  .lead { font-size: 1.2rem; max-width: 46ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+  .orbit { position: relative; aspect-ratio: 1; max-width: 420px; width: 100%; justify-self: center; }
+  .ring { position: absolute; border-radius: 50%; border: 2px dashed rgba(255, 255, 255, .35); }
+  .r1 { inset: 0; }
+  .r2 { inset: 16%; border-style: solid; border-color: rgba(255, 255, 255, .18); }
+  .dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--orange); border: 3px solid var(--navy-deep); }
+  .d1 { top: 6%; left: 62%; }
+  .d2 { bottom: 22%; right: 2%; background: var(--white); width: 12px; height: 12px; }
+  .d3 { bottom: 6%; left: 22%; background: var(--orange-glow); width: 10px; height: 10px; }
+  .deck { position: absolute; inset: 30%; }
+  .pcard {
+    position: absolute; inset: 0; border-radius: 22px; border: 4px solid var(--ink);
+    background: var(--white); box-shadow: 8px 8px 0 var(--ink);
+    display: grid; place-items: center; color: var(--ink);
+  }
+  .pcard :global(svg) { width: 42%; height: 42%; }
+  .c1 { background: var(--orange); transform: rotate(-6deg); }
+  .c2 { background: var(--sky); transform: rotate(8deg) translate(10%, -4%); }
+  .c3 { background: var(--white); transform: rotate(18deg) translate(20%, -6%); }
+  @media (prefers-reduced-motion: no-preference) {
+    .r1 { animation: spin 60s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .orbit { max-width: 260px; }
+  }
+</style>
