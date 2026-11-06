@@ -8,29 +8,31 @@
 - [x] Build the Computation Quests overworld map and the Data Science region map
 - [ ] Gather existing materials (PDFs, slide decks, web links, GitHub repos) into `inbox/`
 - [x] Name the project: Computation Quests
+- [x] Reframe every activity as unplugged
 - [ ] Settle final names for the regions and their places
 
 ## Phase 1: Data Science
 
-- [ ] Inventory existing data science materials (see `inbox/README.md`)
+- [ ] Inventory existing data science materials and mark each one's unplugged fit (see `inbox/README.md`)
 - [ ] Map materials to the Data Science places, big ideas, and standards
 - [ ] Identify gaps in the learning progression
-- [ ] Convert 4–6 core lessons to the lesson template
-- [ ] Build 1–2 student interactive activities
-- [ ] Include at least 1 unplugged activity
+- [ ] Write 4–6 core unplugged activities from the activity template
+- [ ] Make print-ready handouts for each (black and white, letter and A4)
 - [ ] Pilot with a few teachers and classrooms; collect feedback
 
 ## Phase 2: Website v1
 
-- [ ] Choose a site approach (static site generated from this repo is the likely default)
-- [ ] Overworld map as the home page; region maps link to lessons
-- [ ] Navigation and filters: grade band, duration, topic, standard, plugged/unplugged
-- [ ] Publish the Data Science region
+- [x] Choose a site approach: plain static HTML served by GitHub Pages from this repo
+- [x] Overworld map as the home page, with region pages and an About page
+- [ ] Region and place pages link to activities and their printables
+- [ ] Filters: grade band, duration, topic, standard, group size, space needed
+- [ ] Printable classroom map poster and student quest log
+- [ ] Turn on GitHub Pages (see the README) and publish the Data Science region
 
 ## Phase 3: Expand
 
-- [ ] Revise the area template based on pilot feedback
+- [ ] Revise the area and activity templates based on pilot feedback
 - [ ] Next regions: Computational Thinking and AI Literacy
 - [ ] Then Algorithms and Coding, Cybersecurity, and Ethics and Impacts
-- [ ] Cross-subject lessons along the roads between regions
-- [ ] Add a Google Classroom "share" button and other teacher conveniences
+- [ ] Cross-subject activities along the roads between regions
+- [ ] A printable activity pack for each region (one PDF with every handout)

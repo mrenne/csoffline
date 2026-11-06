@@ -13,8 +13,16 @@ are, then record them in the inventory below.
 
 ## Inventory
 
-| Item | Type | Topic / Area | Grade band | Status | Notes |
-|---|---|---|---|---|---|
-| | | | | new | |
+| Item | Type | Topic / Area | Grade band | Unplugged fit | Status | Notes |
+|---|---|---|---|---|---|---|
+| | | | | | new | |
 
 Status values: `new` → `reviewed` → `converted` (moved into an area) or `link-only`.
+
+Unplugged fit, since every activity in Computation Quests is unplugged:
+
+- `ready`: already works with no student technology
+- `adapt`: the core idea can become an unplugged activity (e.g., a browser simulation that
+  students could act out with cards)
+- `background`: useful for teachers to read or watch, but not an activity
+- `out`: depends on technology and does not fit

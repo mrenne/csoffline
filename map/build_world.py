@@ -15,18 +15,19 @@ import maplib as ml
 HERE = os.path.dirname(os.path.abspath(__file__))
 TITLE = 'Computation Quests'
 
-# Regions. Change names and copy here; the map and page follow.
+# Regions. Change names and copy here; the map and the site's pages follow.
+# `link` is a region map's path from the site root.
 REGIONS = [
     dict(id='computational-thinking', name='Computational Thinking', start=True, banner=(486, 884),
          text='The starting point. Students learn to break problems into parts, recognize '
               'patterns, focus on what matters, and describe solutions as clear steps.',
          topics=['Decomposition', 'Pattern recognition', 'Abstraction', 'Algorithmic thinking']),
     dict(id='algorithms-and-coding', name='Algorithms and Coding', banner=(700, 420),
-         text='Students design, write, test, and debug programs, from first sequences and loops '
-              'to complete projects.',
+         text='Students design, write, test, and debug programs on paper, then run them by hand, '
+              'from first sequences and loops to complete projects.',
          topics=['Sequences, loops, and conditionals', 'Variables and data types', 'Functions',
                  'Testing and debugging', 'Program design']),
-    dict(id='data-science', name='Data Science', banner=(292, 404), link='../areas/data-science/map/',
+    dict(id='data-science', name='Data Science', banner=(292, 404), link='areas/data-science/map/',
          text='Students ask questions, collect and clean data, look for patterns, build simple '
               'models, and communicate what the data shows.',
          topics=['Statistical questions', 'Collecting and cleaning data', 'Visualization',

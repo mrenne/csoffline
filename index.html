@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computation Quests</title>
+<meta name="description" content="Free unplugged computer science, data science, computational thinking, cybersecurity, and AI literacy activities for middle and high school, organized as a map. Students need no technology.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!-- header -->
+<a class="skip" href="#content">Skip to content</a>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="./">Computation Quests</a>
+    <nav class="site-nav" aria-label="Site">
+      <ul><li><a href="./" aria-current="page">Map</a></li><li><a href="./areas/">Regions</a></li><li><a href="./about/">About</a></li></ul>
+    </nav>
+  </div>
+</header>
+<!-- /header -->
+<div class="intro">
+  <h1 id="title">Computation Quests</h1>
+  <p>Free unplugged computer science activities for grades 6–12. Select a region on the map.</p>
+</div>
+<main id="content" class="viewer">
+  <div class="map" id="map">
+    <img src="map/world.png" width="872" height="1252"
+      alt="Pixel-art map of Computation Quests: a continent divided into regions for AI Literacy, Data Science, Algorithms and Coding, Ethics and Impacts, and Computational Thinking, with Cybersecurity on an island to the west.">
+  </div>
+  <aside aria-live="polite">
+    <div id="detail">
+      <span class="tag">Welcome</span>
+      <h2>Computation Quests</h2>
+      <p>Each region of the map covers one area of computer science, with unplugged
+        activities that need only paper, cards, and the people in the room. Begin in
+        <strong>Computational Thinking</strong> in the south, then follow the roads. They all
+        meet in <strong>Ethics and Impacts</strong> at the center.</p>
+      <p>Everything is free, and students never need a device.</p>
+    </div>
+    <nav class="all" aria-label="All regions">
+      <h3>Regions</h3>
+      <ol id="list"></ol>
+    </nav>
+  </aside>
+</main>
+<!-- footer -->
+<footer class="site-footer">
+  <p>Computation Quests by Mike Renne. Free, unplugged activities: students need no technology.</p>
+  <p>Content is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">CC BY-NC-SA 4.0</a>. Map art is made with the La Petite Tile Maps pack, which is not covered by that license. <a href="./about/#license">How to share and adapt</a>.</p>
+</footer>
+<!-- /footer -->
+<script src="map/world-data.js"></script>
+<script>
+  const data = window.MAP_DATA;
+  const map = document.getElementById('map');
+  const detail = document.getElementById('detail');
+  const list = document.getElementById('list');
+  const spots = {};
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+
+  function link(cls, text, href) {
+    const a = el('a', cls, text);
+    a.href = href;
+    return a;
+  }
+
+  function show(id) {
+    const r = data.regions.find(x => x.id === id);
+    const topics = el('ul', 'topics');
+    r.topics.forEach(t => topics.append(el('li', null, t)));
+    const actions = el('div', 'actions');
+    if (r.link) actions.append(link('button', 'Open the ' + r.name + ' map', r.link));
+    actions.append(link(r.link ? 'button secondary' : 'button', 'About this region', 'areas/' + r.id + '/'));
+    const parts = [];
+    if (r.start) parts.push(el('span', 'tag', 'Start here'));
+    parts.push(el('h2', null, r.name), el('p', null, r.text), el('h3', null, 'Topics'), topics, actions);
+    if (!r.link) parts.push(el('p', 'soon', 'Activities and a detailed map for this region are coming soon.'));
+    detail.replaceChildren(...parts);
+    Object.values(spots).forEach(s => s.classList.remove('active'));
+    spots[id].classList.add('active');
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+
+  data.regions.forEach(r => {
+    const [x0, y0, x1, y1] = r.box;
+    const b = el('button', 'spot');
+    b.style.left = (x0 / data.width * 100) + '%';
+    b.style.top = (y0 / data.height * 100) + '%';
+    b.style.width = ((x1 - x0) / data.width * 100) + '%';
+    b.style.height = ((y1 - y0) / data.height * 100) + '%';
+    b.setAttribute('aria-label', r.name);
+    b.title = r.name;
+    b.addEventListener('click', () => show(r.id));
+    map.append(b);
+    spots[r.id] = b;
+
+    const li = el('li');
+    const lb = el('button', null, r.name);
+    lb.addEventListener('click', () => show(r.id));
+    li.append(lb);
+    list.append(li);
+  });
+
+  function fromHash() {
+    const id = location.hash.slice(1);
+    if (spots[id]) show(id);
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+</script>
+</body>
+</html>

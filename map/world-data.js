@@ -26,7 +26,7 @@ window.MAP_DATA = {
     {
       "id": "algorithms-and-coding",
       "name": "Algorithms and Coding",
-      "text": "Students design, write, test, and debug programs, from first sequences and loops to complete projects.",
+      "text": "Students design, write, test, and debug programs on paper, then run them by hand, from first sequences and loops to complete projects.",
       "topics": [
         "Sequences, loops, and conditionals",
         "Variables and data types",
@@ -54,7 +54,7 @@ window.MAP_DATA = {
         "Models and prediction",
         "Sampling and bias"
       ],
-      "link": "../areas/data-science/map/",
+      "link": "areas/data-science/map/",
       "start": null,
       "box": [
         222,
