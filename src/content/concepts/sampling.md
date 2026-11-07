@@ -1,6 +1,6 @@
 ---
 name: Sampling
-topics: [data-science]
+domains: [data-science]
 student_summary: Learning about a big group by looking closely at a smaller part of it.
 related: [bias]
 ---

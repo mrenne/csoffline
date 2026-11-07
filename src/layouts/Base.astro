@@ -14,15 +14,14 @@ const { title, description = SITE.description } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 
 const nav = [
-  { label: 'Worlds', href: url('worlds/') },
+  { label: 'Domains', href: url('domains/') },
   { label: 'Concepts', href: url('concepts/') },
   { label: 'Educators', href: url('educators/') },
   { label: 'About', href: url('about/') },
 ];
 const path = Astro.url.pathname;
 const current = (href: string) => path === href || (href !== url('') && path.startsWith(href))
-  || (href === url('worlds/') && path.startsWith(url('games/')))
-  || (href === url('concepts/') && path.startsWith(url('topics/')));
+  || (href === url('domains/') && path.startsWith(url('games/')));
 ---
 <!doctype html>
 <html lang="en">
@@ -38,7 +37,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href={url('')}><Logo /><span>CS Worlds <span class="brand-q">“Unplugged”</span></span></a>
+      <a class="brand" href={url('')}><Logo /><span>CS <span class="brand-q">Offline</span></span></a>
       <nav class="site-nav" aria-label="Site">
         <ul>
           {nav.map((item) => (
@@ -46,7 +45,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
           ))}
         </ul>
       </nav>
-      <a class="btn small header-cta" href={url('worlds/')}>Start exploring</a>
+      <a class="btn small header-cta" href={url('domains/')}>Start exploring</a>
     </div>
   </header>
   <main id="content">
@@ -56,13 +55,13 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
     <div class="wrap">
       <div class="cols">
         <div>
-          <a class="brand" href={url('')}><Logo /><span>CS Worlds <span class="brand-q">“Unplugged”</span></span></a>
-          <p style="margin-top:14px;max-width:34ch">Computer science through unplugged games. Free, with no accounts and no student data.</p>
+          <a class="brand" href={url('')}><Logo /><span>CS <span class="brand-q">Offline</span></span></a>
+          <p style="margin-top:14px;max-width:34ch">Computer science with little or no technology. Free, with no accounts and no student data.</p>
         </div>
         <div>
           <h2>Explore</h2>
           <ul>
-            <li><a href={url('worlds/')}>Worlds</a></li>
+            <li><a href={url('domains/')}>Learning domains</a></li>
             <li><a href={url('concepts/')}>Concepts</a></li>
           </ul>
         </div>

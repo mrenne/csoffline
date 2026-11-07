@@ -1,6 +1,6 @@
 ---
 name: AI Literacy Card Game
-world: ai-world
+domain: ai-literacy
 summary: "Placeholder: one sentence on what players do in your AI literacy card game."
 concepts: [training-data, classification, bias]
 game_type: card
@@ -16,7 +16,7 @@ status: published
 
 ## The story
 
-Placeholder. Set the scene in this game's world.
+Placeholder. Set the scene for the game.
 
 ## How to play
 

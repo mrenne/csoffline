@@ -1,10 +1,10 @@
 // Site-wide constants and helpers.
 
 export const SITE = {
-  name: 'CS Worlds “Unplugged”',
-  description: 'Explore computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged games.',
+  name: 'CS Offline',
+  description: 'Teach and learn computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged games, with little or no technology.',
   author: 'Mike Renne',
-  repo: 'https://github.com/mrenne/csworlds',
+  repo: 'https://github.com/mrenne/csoffline',
   license: { name: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/' },
 };
 

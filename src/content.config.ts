@@ -1,6 +1,6 @@
-// The CS Worlds content model. See docs/system-spec.md, section 5.
+// The CS Offline content model. See docs/system-spec.md, section 5.
 // Front matter in every content file is checked against these schemas at build time.
-// Cross-checks the schemas cannot express (exactly six topics, draft rules, printable
+// Cross-checks the schemas cannot express (exactly six domains, draft rules, printable
 // files) live in src/lib/data.ts.
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
@@ -11,11 +11,12 @@ const status = z.enum(['draft', 'published']);
 const range = z.object({ min: z.number().int().min(1), max: z.number().int().min(1) })
   .refine((r) => r.max >= r.min, { message: 'max must be at least min' });
 
-// Folder-based entries (worlds/<slug>/index.md, games/<slug>/index.md) take the folder name as id.
+// Folder-based entries (games/<slug>/index.md, games/<slug>/guide.md) take the folder name as id.
 const folderId = ({ entry }: { entry: string }) => entry.split('/')[0];
 
-const topics = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/topics' }),
+// The six learning domains. Every game has one home domain.
+const domains = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/domains' }),
   schema: z.object({
     name: z.string(),
     summary: z.string(),
@@ -29,24 +30,10 @@ const concepts = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/concepts' }),
   schema: z.object({
     name: z.string(),
-    topics: z.array(reference('topics')).min(1),
+    domains: z.array(reference('domains')).min(1),
     student_summary: z.string(),
     related: z.array(reference('concepts')).default([]),
     standards: z.array(z.string()).default([]),
-  }),
-});
-
-const worlds = defineCollection({
-  loader: glob({ pattern: '*/index.md', base: './src/content/worlds', generateId: folderId }),
-  schema: ({ image }) => z.object({
-    name: z.string(),
-    tagline: z.string(),
-    // Optional until the visual identity is decided (spec, open decision 4).
-    art: image().optional(),
-    art_alt: z.string().optional(),
-    map_position: z.object({ x: z.number(), y: z.number() }).optional(),
-    order: z.number(),
-    status,
   }),
 });
 
@@ -70,7 +57,7 @@ const games = defineCollection({
   loader: glob({ pattern: '*/index.md', base: './src/content/games', generateId: folderId }),
   schema: z.object({
     name: z.string(),
-    world: reference('worlds'),
+    domain: reference('domains'),
     summary: z.string(),
     concepts: z.array(reference('concepts')).min(1),
     game_type: z.enum(['card', 'board', 'role-play', 'puzzle', 'other']),
@@ -106,4 +93,4 @@ const pathways = defineCollection({
   }),
 });
 
-export const collections = { topics, concepts, worlds, games, guides, pathways };
+export const collections = { domains, concepts, games, guides, pathways };

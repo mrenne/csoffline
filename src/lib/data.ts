@@ -1,15 +1,14 @@
 // Loads every collection once, checks the rules the schemas cannot express, and derives the
-// reverse links (a concept's games, a game's topics). Every page reads content through `site()`.
-// A failed check throws, which fails the build (spec, section 5.10).
+// reverse links (a concept's games, a game's domains). Every page reads content through `site()`.
+// A failed check throws, which fails the build (spec, section 5.9).
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-export type Topic = CollectionEntry<'topics'>;
+export type Domain = CollectionEntry<'domains'>;
 export type Concept = CollectionEntry<'concepts'>;
-export type World = CollectionEntry<'worlds'>;
 export type Game = CollectionEntry<'games'>;
 export type Guide = CollectionEntry<'guides'>;
 
-export const TOPIC_COUNT = 6;
+export const DOMAIN_COUNT = 6;
 
 // Printable files sit next to their game: src/content/games/<slug>/printables/<file>.
 const printableFiles = import.meta.glob('/src/content/games/*/printables/*', {
@@ -29,26 +28,23 @@ export function site(): Promise<Site> {
 }
 
 async function load() {
-  const byOrder = (a: { data: { order: number } }, b: { data: { order: number } }) => a.data.order - b.data.order;
-  const topics = (await getCollection('topics')).sort(byOrder);
+  const domains = (await getCollection('domains')).sort((a, b) => a.data.order - b.data.order);
   const concepts = (await getCollection('concepts')).sort((a, b) => a.data.name.localeCompare(b.data.name));
-  const allWorlds = (await getCollection('worlds')).sort(byOrder);
   const allGames = (await getCollection('games')).sort((a, b) => a.data.name.localeCompare(b.data.name));
   const guides = await getCollection('guides');
 
   const errors: string[] = [];
   const warnings: string[] = [];
   const ids = (list: { id: string }[]) => new Set(list.map((e) => e.id));
-  const topicIds = ids(topics), conceptIds = ids(concepts), worldIds = ids(allWorlds);
+  const domainIds = ids(domains), conceptIds = ids(concepts);
 
-  if (topics.length !== TOPIC_COUNT) errors.push(`expected ${TOPIC_COUNT} topics, found ${topics.length}`);
+  if (domains.length !== DOMAIN_COUNT) errors.push(`expected ${DOMAIN_COUNT} domains, found ${domains.length}`);
   for (const c of concepts) {
-    for (const t of c.data.topics) if (!topicIds.has(t.id)) errors.push(`concept ${c.id}: unknown topic "${t.id}"`);
+    for (const d of c.data.domains) if (!domainIds.has(d.id)) errors.push(`concept ${c.id}: unknown domain "${d.id}"`);
     for (const r of c.data.related) if (!conceptIds.has(r.id)) errors.push(`concept ${c.id}: unknown related concept "${r.id}"`);
   }
-  const worldStatus = new Map(allWorlds.map((w) => [w.id, w.data.status]));
   for (const g of allGames) {
-    if (!worldIds.has(g.data.world.id)) errors.push(`game ${g.id}: unknown world "${g.data.world.id}"`);
+    if (!domainIds.has(g.data.domain.id)) errors.push(`game ${g.id}: unknown domain "${g.data.domain.id}"`);
     for (const c of [...g.data.concepts, ...g.data.variants.flatMap((v) => v.concepts)]) {
       if (!conceptIds.has(c.id)) errors.push(`game ${g.id}: unknown concept "${c.id}"`);
     }
@@ -56,33 +52,28 @@ async function load() {
       if (!printableUrl(g, p.file)) errors.push(`game ${g.id}: printable file not found: ${p.file}`);
     }
     if (g.data.status === 'published') {
-      if (worldStatus.get(g.data.world.id) === 'draft') errors.push(`game ${g.id} is published but its world is a draft`);
       if (!g.data.printables.length) warnings.push(`game ${g.id} has no printables yet`);
       if (!guides.some((x) => x.id === g.id)) warnings.push(`game ${g.id} has no guide.md`);
     }
   }
-  if (errors.length) throw new Error('CS Worlds content check failed:\n  - ' + errors.join('\n  - '));
+  if (errors.length) throw new Error('CS Offline content check failed:\n  - ' + errors.join('\n  - '));
 
-  const worlds = allWorlds.filter((w) => w.data.status === 'published');
   const games = allGames.filter((g) => g.data.status === 'published');
-
-  const topicOf = new Map(topics.map((t) => [t.id, t]));
+  const domainOf = new Map(domains.map((d) => [d.id, d]));
   const conceptOf = new Map(concepts.map((c) => [c.id, c]));
-  const worldOf = new Map(allWorlds.map((w) => [w.id, w]));
 
-  const gameTopics = (g: Game) => {
-    const set = new Set(g.data.concepts.flatMap((c) => conceptOf.get(c.id)!.data.topics.map((t) => t.id)));
-    return topics.filter((t) => set.has(t.id));
+  // A game's home domain first, then any other domain its concepts belong to.
+  const gameDomains = (g: Game) => {
+    const set = new Set([g.data.domain.id, ...g.data.concepts.flatMap((c) => conceptOf.get(c.id)!.data.domains.map((d) => d.id))]);
+    return [domainOf.get(g.data.domain.id)!, ...domains.filter((d) => d.id !== g.data.domain.id && set.has(d.id))];
   };
   const gameConcepts = (g: Game) => g.data.concepts.map((c) => conceptOf.get(c.id)!);
   const gamesFor = (concept: Concept) => games.filter((g) => g.data.concepts.some((c) => c.id === concept.id));
-  const conceptTopics = (c: Concept) => c.data.topics.map((t) => topicOf.get(t.id)!);
-  const conceptsFor = (topic: Topic) => concepts.filter((c) => c.data.topics.some((t) => t.id === topic.id));
-  const gamesInWorld = (w: World) => games.filter((g) => g.data.world.id === w.id);
-  const worldConcepts = (w: World) => {
-    const set = new Set(gamesInWorld(w).flatMap((g) => g.data.concepts.map((c) => c.id)));
-    return concepts.filter((c) => set.has(c.id));
-  };
+  const conceptDomains = (c: Concept) => c.data.domains.map((d) => domainOf.get(d.id)!);
+  const conceptsFor = (domain: Domain) => concepts.filter((c) => c.data.domains.some((d) => d.id === domain.id));
+  // Games whose home is this domain, and games from other domains that also teach it.
+  const gamesIn = (domain: Domain) => games.filter((g) => g.data.domain.id === domain.id);
+  const gamesAlso = (domain: Domain) => games.filter((g) => g.data.domain.id !== domain.id && gameDomains(g).some((d) => d.id === domain.id));
   // Other games that share at least one concept, most shared first.
   const pairsWith = (g: Game) => {
     const mine = new Set(g.data.concepts.map((c) => c.id));
@@ -94,24 +85,23 @@ async function load() {
       .map((x) => x.game);
   };
 
-  if (warnings.length && !globalThis.__csworldsWarned) {
-    globalThis.__csworldsWarned = true;
-    console.warn('CS Worlds content warnings:\n  - ' + warnings.join('\n  - '));
+  if (warnings.length && !globalThis.__csofflineWarned) {
+    globalThis.__csofflineWarned = true;
+    console.warn('CS Offline content warnings:\n  - ' + warnings.join('\n  - '));
   }
 
   return {
-    topics, concepts, worlds, games, guides,
-    topic: (id: string) => topicOf.get(id)!,
+    domains, concepts, games, guides,
+    domain: (id: string) => domainOf.get(id)!,
     concept: (id: string) => conceptOf.get(id)!,
-    world: (id: string) => worldOf.get(id)!,
     guide: (id: string) => guides.find((x) => x.id === id),
-    gameTopics, gameConcepts, gamesFor, conceptTopics, conceptsFor, gamesInWorld, worldConcepts, pairsWith,
+    gameDomains, gameConcepts, gamesFor, conceptDomains, conceptsFor, gamesIn, gamesAlso, pairsWith,
   };
 }
 
 declare global {
   // eslint-disable-next-line no-var
-  var __csworldsWarned: boolean | undefined;
+  var __csofflineWarned: boolean | undefined;
 }
 
 // Split rendered Markdown into sections by its <h2> headings, keyed by heading id.

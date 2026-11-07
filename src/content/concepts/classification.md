@@ -1,6 +1,6 @@
 ---
 name: Classification
-topics: [ai-literacy]
+domains: [ai-literacy]
 student_summary: Sorting things into groups by their features, the way many AI systems make decisions.
 related: [training-data]
 ---

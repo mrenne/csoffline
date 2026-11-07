@@ -1,6 +1,6 @@
 ---
 name: Data visualization
-topics: [data-science]
+domains: [data-science]
 student_summary: Turning data into pictures, like charts, so patterns are easier to see.
 related: []
 ---

@@ -6,4 +6,4 @@ icon: chip
 order: 1
 ---
 
-Placeholder introduction for Computer Science. Replace it with a short overview of the topic.
+Placeholder introduction for Computer Science. Replace it with a short overview of the domain.

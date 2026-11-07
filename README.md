@@ -1,7 +1,8 @@
-# CS Worlds
+# CS Offline
 
-**CS Worlds** is a free collection of **unplugged** activities for middle and high school
-teachers. Every activity works with no technology: students use paper, cards, and each other.
+**CS Offline** is a free set of teacher and student resources for teaching computer science
+without lots of technology. Every activity is **unplugged**: students use paper, cards, and each
+other.
 
 > Status: **planning, starting over** (November 2026). Only the decisions below are settled.
 
@@ -9,18 +10,17 @@ teachers. Every activity works with no technology: students use paper, cards, an
 
 | Decision | Notes |
 |---|---|
-| Name: **CS Worlds** | |
+| Name: **CS Offline** | Repo: `mrenne/csoffline` |
 | Every activity is **unplugged** | Students use no technology. Teachers may print handouts |
-| Topic focus: **computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics** | |
+| Six learning domains: **computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics** | Every game has one home domain |
 | Audience: **middle and high school** (grades 6–12) | |
 | Everything is **free** | |
 | License: **CC BY-NC-SA 4.0** | See [LICENSE](LICENSE) |
 
 ## System
 
-CS Worlds will be a website where students and educators explore the topics through unplugged
-games. Worlds are microworlds (settings students explore), games are played inside them, and
-concepts connect the games. See the [system spec](docs/system-spec.md) for the content model,
+CS Offline will be a website where students and educators explore six learning domains through
+unplugged games. Each game has a home domain, and concepts connect games across domains. See the [system spec](docs/system-spec.md) for the content model,
 site structure, technical design, phases, and open decisions.
 
 ## Working on the site
@@ -35,7 +35,7 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:4321/csworlds/. Content lives in `src/content/` (see the
+Then open http://localhost:4321/csoffline/. Content lives in `src/content/` (see the
 [system spec](docs/system-spec.md), section 5). The build checks the content and stops with a
 message if something is broken:
 
@@ -46,8 +46,8 @@ npm run build
 The site is **not live**. GitHub Actions builds it on every push, but only deploys when started by
 hand, after GitHub Pages is turned on (see `.github/workflows/site.yml`).
 
-Current content is placeholder: the six topics, five sample concepts, and two placeholder worlds
-and games standing in for the AI literacy and data science card games.
+Current content is placeholder: the six domains, five sample concepts, and two placeholder
+games standing in for the AI literacy and data science card games.
 
 ## Archive
 

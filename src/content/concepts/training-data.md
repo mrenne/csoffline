@@ -1,6 +1,6 @@
 ---
 name: Training data
-topics: [ai-literacy, data-science]
+domains: [ai-literacy, data-science]
 student_summary: AI systems learn from examples. The examples they get shape what they can do.
 related: [classification, bias]
 ---

@@ -9,16 +9,16 @@ const s = await site();
 const concepts = s.concepts.filter((c) => s.gamesFor(c).length);
 const types = [...new Set(s.games.map((g) => g.data.game_type))];
 ---
-<Base title="Educators" description="Find an unplugged CS Worlds game by topic, concept, grade, time, or group size.">
+<Base title="Educators" description="Find an unplugged CS Offline game by domain, concept, grade, time, or group size.">
   <PageHead eyebrow="For educators" title="Game catalog"
     lead="Every game is unplugged and free, with a facilitation guide and printables. Filter by what you need to teach." />
   <section class="on-paper band">
     <div class="wrap">
       <form class="filters" id="filters" aria-label="Filter games" hidden>
-        <label>Topic
-          <select name="topic">
-            <option value="">All topics</option>
-            {s.topics.map((t) => <option value={t.id}>{t.data.name}</option>)}
+        <label>Domain
+          <select name="domain">
+            <option value="">All domains</option>
+            {s.domains.map((d) => <option value={d.id}>{d.data.name}</option>)}
           </select>
         </label>
         <label>Concept
@@ -52,7 +52,7 @@ const types = [...new Set(s.games.map((g) => g.data.game_type))];
       <ul class="grid two" id="results" style="list-style:none;margin:0;padding:0">
         {s.games.map((g) => (
           <li
-            data-topics={s.gameTopics(g).map((t) => t.id).join(' ')}
+            data-domains={s.gameDomains(g).map((d) => d.id).join(' ')}
             data-concepts={g.data.concepts.map((c) => c.id).join(' ')}
             data-grades={g.data.grade_bands.join(' ')}
             data-minutes={g.data.minutes.min}
@@ -84,7 +84,7 @@ const types = [...new Set(s.games.map((g) => g.data.game_type))];
     let shown = 0;
     for (const li of items) {
       const d = li.dataset;
-      const ok = (!f.topic || d.topics!.split(' ').includes(f.topic))
+      const ok = (!f.domain || d.domains!.split(' ').includes(f.domain))
         && (!f.concept || d.concepts!.split(' ').includes(f.concept))
         && (!f.grades || d.grades!.split(' ').includes(f.grades))
         && (!f.time || Number(d.minutes) <= Number(f.time))

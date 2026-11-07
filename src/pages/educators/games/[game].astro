@@ -15,9 +15,8 @@ const { game } = Astro.props as { game: Game };
 const s = await site();
 const guide = s.guide(game.id);
 const Guide = guide ? (await render(guide)).Content : null;
-const world = s.world(game.data.world.id);
 const concepts = s.gameConcepts(game);
-const topics = s.gameTopics(game);
+const domains = s.gameDomains(game);
 const pairs = s.pairsWith(game).slice(0, 2);
 const PAPER: Record<string, string> = { letter: 'Letter', a4: 'A4', both: 'Letter and A4' };
 const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', both: 'Color or black and white' };
@@ -68,7 +67,7 @@ const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', b
           <ul class="chips" style="margin-bottom:14px">
             {concepts.map((c) => <li><a class="chip" href={url(`concepts/${c.id}/`)}>{c.data.name}</a></li>)}
           </ul>
-          <p class="meta" style="margin:0">Topics: {topics.map((t) => t.data.name).join(', ')}</p>
+          <p class="meta" style="margin:0">Also touches: {domains.slice(1).map((d) => d.data.name).join(', ') || 'no other domains'}</p>
         </div>
         <div class="card">
           <h2 style="font-size:1.25rem">Standards</h2>
@@ -77,8 +76,8 @@ const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', b
           ) : <p style="margin:0">Not listed yet.</p>}
         </div>
         <div class="card">
-          <h2 style="font-size:1.25rem">World</h2>
-          <a class="row-link" href={url(`worlds/${world.id}/`)}><span><strong>{world.data.name}</strong><span>{world.data.tagline}</span></span></a>
+          <h2 style="font-size:1.25rem">Learning domain</h2>
+          <a class="row-link" href={url(`domains/${domains[0].id}/`)}><span><strong>{domains[0].data.name}</strong><span>{domains[0].data.summary}</span></span></a>
         </div>
         <p class="meta">License: {game.data.license}{game.data.credits ? ` · ${game.data.credits}` : ''}</p>
       </aside>

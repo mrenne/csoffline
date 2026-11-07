@@ -6,4 +6,4 @@ icon: puzzle
 order: 2
 ---
 
-Placeholder introduction for Computational Thinking. Replace it with a short overview of the topic.
+Placeholder introduction for Computational Thinking. Replace it with a short overview of the domain.

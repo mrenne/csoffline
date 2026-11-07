@@ -1,6 +1,6 @@
 ---
 name: Data Science Card Game
-world: data-world
+domain: data-science
 summary: "Placeholder: one sentence on what players do in your data science card game."
 concepts: [sampling, data-visualization, bias]
 game_type: card
@@ -16,7 +16,7 @@ status: published
 
 ## The story
 
-Placeholder. Set the scene in this game's world.
+Placeholder. Set the scene for the game.
 
 ## How to play
 

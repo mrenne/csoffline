@@ -6,4 +6,4 @@ icon: chart
 order: 3
 ---
 
-Placeholder introduction for Data Science. Replace it with a short overview of the topic.
+Placeholder introduction for Data Science. Replace it with a short overview of the domain.

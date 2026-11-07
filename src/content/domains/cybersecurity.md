@@ -6,4 +6,4 @@ icon: shield
 order: 5
 ---
 
-Placeholder introduction for Cybersecurity. Replace it with a short overview of the topic.
+Placeholder introduction for Cybersecurity. Replace it with a short overview of the domain.

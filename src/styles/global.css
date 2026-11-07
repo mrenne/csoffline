@@ -1,4 +1,4 @@
-/* CS Worlds theme: deep navy and warm orange bands, chunky ink-outlined cards with hard
+/* CS Offline theme: deep navy and warm orange bands, chunky ink-outlined cards with hard
    offset shadows, Space Grotesk headings and Manrope body text. Fonts are self-hosted. */
 
 :root {
@@ -201,7 +201,7 @@ a.card:hover { transform: translate(-3px, -3px) rotate(-.4deg); }
 .tilt-l { rotate: -.6deg; }
 .tilt-r { rotate: .6deg; }
 
-/* Topic icon tiles */
+/* Domain icon tiles */
 .tile {
   display: grid; place-items: center;
   width: 48px; height: 48px; border-radius: 12px;

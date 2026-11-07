@@ -6,4 +6,4 @@ icon: scale
 order: 6
 ---
 
-Placeholder introduction for Ethics. Replace it with a short overview of the topic.
+Placeholder introduction for Ethics. Replace it with a short overview of the domain.

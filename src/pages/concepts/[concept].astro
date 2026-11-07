@@ -17,12 +17,12 @@ const parts = sections(concept.rendered?.html ?? '');
 const student = parts['whats-really-going-on'];
 const educator = ['background', 'misconceptions'].map((k) => parts[k]).filter(Boolean);
 const games = s.gamesFor(concept);
-const topics = s.conceptTopics(concept);
+const domains = s.conceptDomains(concept);
 const related = concept.data.related.map((r) => s.concept(r.id));
 ---
 <Base title={concept.data.name} description={concept.data.student_summary}>
   <PageHead
-    eyebrow={topics.map((t) => t.data.name).join(' · ')}
+    eyebrow={domains.map((d) => d.data.name).join(' · ')}
     title={concept.data.name}
     lead={concept.data.student_summary}
     crumbs={[{ label: 'Concepts', href: url('concepts/') }, { label: concept.data.name }]}
@@ -43,8 +43,8 @@ const related = concept.data.related.map((r) => s.concept(r.id));
       </div>
       <aside>
         <div class="card">
-          <h2 style="font-size:1.25rem">Topics</h2>
-          <ul class="chips">{topics.map((t) => <li><a class="chip" href={url(`topics/${t.id}/`)}>{t.data.name}</a></li>)}</ul>
+          <h2 style="font-size:1.25rem">Domains</h2>
+          <ul class="chips">{domains.map((d) => <li><a class="chip" href={url(`domains/${d.id}/`)}>{d.data.name}</a></li>)}</ul>
         </div>
         {related.length > 0 && (
           <div class="card">

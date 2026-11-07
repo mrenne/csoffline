@@ -14,16 +14,16 @@ export async function getStaticPaths() {
 const { game } = Astro.props as { game: Game };
 const s = await site();
 const { Content } = await render(game);
-const world = s.world(game.data.world.id);
+const domain = s.domain(game.data.domain.id);
 const concepts = s.gameConcepts(game);
 const next = s.pairsWith(game).slice(0, 2);
 ---
 <Base title={game.data.name} description={game.data.summary}>
   <PageHead
-    eyebrow={`${GAME_TYPE[game.data.game_type]} · ${world.data.name}`}
+    eyebrow={`${GAME_TYPE[game.data.game_type]} · ${domain.data.name}`}
     title={game.data.name}
     lead={game.data.summary}
-    crumbs={[{ label: 'Worlds', href: url('worlds/') }, { label: world.data.name, href: url(`worlds/${world.id}/`) }, { label: game.data.name }]}
+    crumbs={[{ label: 'Domains', href: url('domains/') }, { label: domain.data.name, href: url(`domains/${domain.id}/`) }, { label: game.data.name }]}
   />
   <section class="on-paper band">
     <div class="wrap layout">
@@ -53,7 +53,7 @@ const next = s.pairsWith(game).slice(0, 2);
       <div class="wrap">
         <div class="band-head">
           <span class="eyebrow">Keep exploring</span>
-          <h2>The same ideas, in another world</h2>
+          <h2>More games with the same ideas</h2>
         </div>
         <div class="grid two">{next.map((g) => <GameCard game={g} />)}</div>
       </div>

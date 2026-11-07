@@ -1,6 +1,6 @@
 ---
 name: Bias
-topics: [ethics, ai-literacy, data-science]
+domains: [ethics, ai-literacy, data-science]
 student_summary: When data or decisions lean unfairly toward some people or answers.
 related: [training-data, sampling]
 ---

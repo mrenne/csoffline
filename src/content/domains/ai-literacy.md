@@ -6,4 +6,4 @@ icon: spark
 order: 4
 ---
 
-Placeholder introduction for AI Literacy. Replace it with a short overview of the topic.
+Placeholder introduction for AI Literacy. Replace it with a short overview of the domain.
