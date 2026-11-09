@@ -85,6 +85,7 @@ const activities = defineCollection({
     notice: z.string().optional(),
     // Set only when the author chooses a license; nothing is assumed.
     license: z.string().optional(),
+    license_url: z.url().optional(),
   }).refine((a) => a.link || (a.group_size && a.grouping && a.minutes && a.prep_minutes !== undefined && a.grade_bands), {
     message: 'group_size, grouping, minutes, prep_minutes, and grade_bands are required unless the activity has a link',
   }),

@@ -26,7 +26,8 @@ variants:
     summary: "A 25–30 minute co-op game. Players are the safety team at an AI company, working together to make AI useful before it drifts out of control or launch day arrives."
 standards: ["CSTA/AI4K12 AI Learning Priorities, Grades 6–8"]
 credits: "Discussion Mode is adapted from Align on the Line by Beck Tench & Emily Weinstein (Center for Digital Thriving, AI Pedagogy Project), CC BY-NC-SA 4.0."
-license: "CC BY-NC-SA 4.0 (Alpha Set)"
+license: "CC BY-NC-SA 4.0"
+license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
 status: published
 ---
 

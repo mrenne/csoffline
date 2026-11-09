@@ -4,7 +4,7 @@ export const SITE = {
   name: 'CS Offline',
   description: 'Teach and learn computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged activities, with little or no technology.',
   author: 'Mike Renne',
-  authorUrl: 'https://www.mikerenne.com',
+  authorUrl: 'https://www.linkedin.com/in/michaelrenne/',
   repo: 'https://github.com/mrenne/csoffline',
 };
 

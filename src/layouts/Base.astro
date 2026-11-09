@@ -30,7 +30,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{pageTitle}</title>
   <meta name="description" content={description}>
-  <link rel="icon" href={url('favicon.svg')} type="image/svg+xml">
+  <link rel="icon" href={url('favicon.png')} type="image/png">
   <meta name="theme-color" content="#0f1e42">
 </head>
 <body>
@@ -81,7 +81,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
         </div>
       </div>
       <div class="legal">
-        <span>{SITE.name} by <a href={SITE.authorUrl}>{SITE.author}</a>.</span>
+        <span>{SITE.name} - A project by <a href={SITE.authorUrl}>{SITE.author}</a>.</span>
       </div>
     </div>
   </footer>

@@ -132,6 +132,7 @@ Body sections, by heading:
 | `credits` | string | no | Co-designers, sources, adaptations |
 | `notice` | string | no | Legal or affiliation notice shown on the student and educator pages |
 | `license` | string | no | Set only when the activity has a stated license; never assumed |
+| `license_url` | url | no | Makes the license name a link |
 
 Two body files:
 

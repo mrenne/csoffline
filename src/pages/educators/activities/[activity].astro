@@ -92,7 +92,7 @@ const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', b
         </div>
         {activity.data.credits && <p class="meta">{activity.data.credits}</p>}
         {activity.data.notice && <p class="meta">{activity.data.notice}</p>}
-        {activity.data.license && <p class="meta">License: {activity.data.license}</p>}
+        {activity.data.license && <p class="meta">License: {activity.data.license_url ? <a href={activity.data.license_url} rel="noopener">{activity.data.license}</a> : activity.data.license}</p>}
       </aside>
     </div>
   </section>

@@ -3,7 +3,8 @@ import type { Activity } from '../lib/data';
 
 interface Props { activity: Activity }
 const { author } = Astro.props.activity.data;
-const initials = author.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const people = author.name.split(/\s*,\s*(?:(?:and|&)\s+)?|\s+(?:and|&)\s+/).filter(Boolean);
+const initials = (people.length > 1 ? people : author.name.split(/\s+/).slice(0, 2)).map((w) => w[0]).slice(0, 3).join('').toUpperCase();
 ---
 <section class="on-navy band">
   <div class="wrap">
