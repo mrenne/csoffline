@@ -1,4 +1,8 @@
-# CS Offline
+<p align="center">
+  <img src="public/logo.png" alt="CS Offline logo" width="323">
+</p>
+
+<h1 align="center">CS Offline</h1>
 
 **CS Offline** is a set of teacher and student resources for teaching computer science
 without lots of technology. Every activity is **unplugged**: students use paper, cards, and each
