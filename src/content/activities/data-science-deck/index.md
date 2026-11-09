@@ -7,7 +7,7 @@ activity_type: card-game
 audience: both
 author:
   name: Mike Renne
-  bio: "Mike Renne is a computer science educator and designer."
+  bio: "Mike Renne is a computer science and technology educator."
   link: { label: "LinkedIn", url: "https://www.linkedin.com/in/michaelrenne/" }
 group_size: { min: 2, max: 4 }
 grouping: [small-groups]

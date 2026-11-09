@@ -1,6 +1,6 @@
 # CS Offline
 
-**CS Offline** is a free set of teacher and student resources for teaching computer science
+**CS Offline** is a set of teacher and student resources for teaching computer science
 without lots of technology. Every activity is **unplugged**: students use paper, cards, and each
 other.
 
@@ -14,7 +14,6 @@ other.
 | Every activity is **unplugged** | Students use no technology. Teachers may print handouts |
 | Six learning domains: **computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics** | Every activity has one home domain |
 | Audience: **middle and high school** (grades 6–12) | |
-| Everything is **free** | |
 | License: **set per activity** | Nothing is Creative Commons unless its activity says so |
 
 ## System

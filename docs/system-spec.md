@@ -128,8 +128,9 @@ Body sections, by heading:
 | `standards` | standard refs | no | |
 | `media` | list | no | Images or a short rules video, with captions |
 | `status` | enum | yes | `draft` \| `published` |
-| `author` | {name, bio?, link?} | yes | Shown in the Author section on the activity's pages. `link` is {label, url} |
+| `author` | {name, role?, bio?, link?} | yes | Shown in the Author section on the activity's pages. `role` defaults to "author" (for example, "designer"). `link` is {label, url} |
 | `credits` | string | no | Co-designers, sources, adaptations |
+| `notice` | string | no | Legal or affiliation notice shown on the student and educator pages |
 | `license` | string | no | Set only when the activity has a stated license; never assumed |
 
 Two body files:

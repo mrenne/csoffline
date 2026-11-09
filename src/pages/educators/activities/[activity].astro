@@ -91,6 +91,7 @@ const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', b
           <a class="row-link" href={url(`domains/${domains[0].id}/`)}><span><strong>{domains[0].data.name}</strong><span>{domains[0].data.summary}</span></span></a>
         </div>
         {activity.data.credits && <p class="meta">{activity.data.credits}</p>}
+        {activity.data.notice && <p class="meta">{activity.data.notice}</p>}
         {activity.data.license && <p class="meta">License: {activity.data.license}</p>}
       </aside>
     </div>

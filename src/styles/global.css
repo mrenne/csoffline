@@ -235,6 +235,8 @@ a.card:hover { transform: translate(-3px, -3px) rotate(-.4deg); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin: .3em 0; }
 .prose code { font-size: .92em; background: var(--orange-soft); color: var(--ink); padding: 1px 6px; border-radius: 6px; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 2px solid var(--ink); }
 .section-card + .section-card { margin-top: 28px; }
 
 /* Facts panel */

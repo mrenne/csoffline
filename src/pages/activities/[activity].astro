@@ -33,6 +33,7 @@ const next = s.pairsWith(activity).filter((a) => a.data.audience !== 'educators'
         <div class="card">
           <h2 style="font-size:1.25rem">At a glance</h2>
           <Facts activity={activity} />
+          {activity.data.link && <a class="btn small" href={activity.data.link.url} rel="noopener">{activity.data.link.label}</a>}
         </div>
         <div class="card">
           <h2 style="font-size:1.25rem">What's really going on</h2>
@@ -48,6 +49,7 @@ const next = s.pairsWith(activity).filter((a) => a.data.audience !== 'educators'
             <a class="btn small" href={url(`educators/activities/${activity.id}/`)}>Educator guide</a>
           </div>
         )}
+        {activity.data.notice && <p class="meta">{activity.data.notice}</p>}
       </aside>
     </div>
   </section>

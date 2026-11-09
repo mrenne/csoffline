@@ -10,7 +10,7 @@ const initials = author.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').
     <div class="card author">
       <div class="avatar" aria-hidden="true">{initials}</div>
       <div>
-        <span class="eyebrow accent">About the author</span>
+        <span class="eyebrow accent">About the {author.role}</span>
         <h2>{author.name}</h2>
         {author.bio && <p>{author.bio}</p>}
         {author.link && <a class="btn small" href={author.link.url} rel="noopener">{author.link.label}</a>}

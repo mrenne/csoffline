@@ -77,10 +77,12 @@ const activities = defineCollection({
     status,
     author: z.object({
       name: z.string(),
+      role: z.string().default('author'),
       bio: z.string().optional(),
       link: z.object({ label: z.string(), url: z.url() }).optional(),
     }),
     credits: z.string().optional(),
+    notice: z.string().optional(),
     // Set only when the author chooses a license; nothing is assumed.
     license: z.string().optional(),
   }).refine((a) => a.link || (a.group_size && a.grouping && a.minutes && a.prep_minutes !== undefined && a.grade_bands), {
