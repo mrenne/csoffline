@@ -1,22 +1,22 @@
 // Loads every collection once, checks the rules the schemas cannot express, and derives the
-// reverse links (a concept's games, a game's domains). Every page reads content through `site()`.
+// reverse links (an idea's activities, an activity's domains). Every page reads content through `site()`.
 // A failed check throws, which fails the build (spec, section 5.9).
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Domain = CollectionEntry<'domains'>;
-export type Concept = CollectionEntry<'concepts'>;
-export type Game = CollectionEntry<'games'>;
+export type Idea = CollectionEntry<'ideas'>;
+export type Activity = CollectionEntry<'activities'>;
 export type Guide = CollectionEntry<'guides'>;
 
 export const DOMAIN_COUNT = 6;
 
-// Printable files sit next to their game: src/content/games/<slug>/printables/<file>.
-const printableFiles = import.meta.glob('/src/content/games/*/printables/*', {
+// Printable files sit next to their activity: src/content/activities/<slug>/printables/<file>.
+const printableFiles = import.meta.glob('/src/content/activities/*/printables/*', {
   query: '?url', import: 'default', eager: true,
 }) as Record<string, string>;
 
-export function printableUrl(game: Game, file: string): string | undefined {
-  return printableFiles[`/src/content/games/${game.id}/${file.replace(/^\.?\//, '')}`];
+export function printableUrl(activity: Activity, file: string): string | undefined {
+  return printableFiles[`/src/content/activities/${activity.id}/${file.replace(/^\.?\//, '')}`];
 }
 
 type Site = Awaited<ReturnType<typeof load>>;
@@ -29,60 +29,63 @@ export function site(): Promise<Site> {
 
 async function load() {
   const domains = (await getCollection('domains')).sort((a, b) => a.data.order - b.data.order);
-  const concepts = (await getCollection('concepts')).sort((a, b) => a.data.name.localeCompare(b.data.name));
-  const allGames = (await getCollection('games')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+  const ideas = (await getCollection('ideas')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+  const allActivities = (await getCollection('activities')).sort((a, b) => a.data.name.localeCompare(b.data.name));
   const guides = await getCollection('guides');
 
   const errors: string[] = [];
   const warnings: string[] = [];
   const ids = (list: { id: string }[]) => new Set(list.map((e) => e.id));
-  const domainIds = ids(domains), conceptIds = ids(concepts);
+  const domainIds = ids(domains), ideaIds = ids(ideas);
 
   if (domains.length !== DOMAIN_COUNT) errors.push(`expected ${DOMAIN_COUNT} domains, found ${domains.length}`);
-  for (const c of concepts) {
-    for (const d of c.data.domains) if (!domainIds.has(d.id)) errors.push(`concept ${c.id}: unknown domain "${d.id}"`);
-    for (const r of c.data.related) if (!conceptIds.has(r.id)) errors.push(`concept ${c.id}: unknown related concept "${r.id}"`);
+  for (const c of ideas) {
+    for (const d of c.data.domains) if (!domainIds.has(d.id)) errors.push(`idea ${c.id}: unknown domain "${d.id}"`);
+    for (const r of c.data.related) if (!ideaIds.has(r.id)) errors.push(`idea ${c.id}: unknown related idea "${r.id}"`);
   }
-  for (const g of allGames) {
-    if (!domainIds.has(g.data.domain.id)) errors.push(`game ${g.id}: unknown domain "${g.data.domain.id}"`);
-    for (const c of [...g.data.concepts, ...g.data.variants.flatMap((v) => v.concepts)]) {
-      if (!conceptIds.has(c.id)) errors.push(`game ${g.id}: unknown concept "${c.id}"`);
+  for (const g of allActivities) {
+    if (!domainIds.has(g.data.domain.id)) errors.push(`activity ${g.id}: unknown domain "${g.data.domain.id}"`);
+    for (const c of [...g.data.ideas, ...g.data.variants.flatMap((v) => v.ideas)]) {
+      if (!ideaIds.has(c.id)) errors.push(`activity ${g.id}: unknown idea "${c.id}"`);
     }
     for (const p of g.data.printables) {
-      if (!printableUrl(g, p.file)) errors.push(`game ${g.id}: printable file not found: ${p.file}`);
+      if (!printableUrl(g, p.file)) errors.push(`activity ${g.id}: printable file not found: ${p.file}`);
     }
     if (g.data.status === 'published') {
-      if (!g.data.printables.length) warnings.push(`game ${g.id} has no printables yet`);
-      if (!guides.some((x) => x.id === g.id)) warnings.push(`game ${g.id} has no guide.md`);
+      if (!g.data.link && !g.data.printables.length) warnings.push(`activity ${g.id} has no printables yet`);
+      if (!g.data.link && !guides.some((x) => x.id === g.id)) warnings.push(`activity ${g.id} has no guide.md`);
     }
   }
   if (errors.length) throw new Error('CS Offline content check failed:\n  - ' + errors.join('\n  - '));
 
-  const games = allGames.filter((g) => g.data.status === 'published');
+  const activities = allActivities.filter((g) => g.data.status === 'published');
+  // Student pages exist unless an activity is for educators only, and educator pages unless it is for students only.
+  const studentActivities = activities.filter((a) => a.data.audience !== 'educators');
+  const educatorActivities = activities.filter((a) => a.data.audience !== 'students');
   const domainOf = new Map(domains.map((d) => [d.id, d]));
-  const conceptOf = new Map(concepts.map((c) => [c.id, c]));
+  const ideaOf = new Map(ideas.map((c) => [c.id, c]));
 
-  // A game's home domain first, then any other domain its concepts belong to.
-  const gameDomains = (g: Game) => {
-    const set = new Set([g.data.domain.id, ...g.data.concepts.flatMap((c) => conceptOf.get(c.id)!.data.domains.map((d) => d.id))]);
+  // An activity's home domain first, then any other domain its ideas belong to.
+  const activityDomains = (g: Activity) => {
+    const set = new Set([g.data.domain.id, ...g.data.ideas.flatMap((c) => ideaOf.get(c.id)!.data.domains.map((d) => d.id))]);
     return [domainOf.get(g.data.domain.id)!, ...domains.filter((d) => d.id !== g.data.domain.id && set.has(d.id))];
   };
-  const gameConcepts = (g: Game) => g.data.concepts.map((c) => conceptOf.get(c.id)!);
-  const gamesFor = (concept: Concept) => games.filter((g) => g.data.concepts.some((c) => c.id === concept.id));
-  const conceptDomains = (c: Concept) => c.data.domains.map((d) => domainOf.get(d.id)!);
-  const conceptsFor = (domain: Domain) => concepts.filter((c) => c.data.domains.some((d) => d.id === domain.id));
-  // Games whose home is this domain, and games from other domains that also teach it.
-  const gamesIn = (domain: Domain) => games.filter((g) => g.data.domain.id === domain.id);
-  const gamesAlso = (domain: Domain) => games.filter((g) => g.data.domain.id !== domain.id && gameDomains(g).some((d) => d.id === domain.id));
-  // Other games that share at least one concept, most shared first.
-  const pairsWith = (g: Game) => {
-    const mine = new Set(g.data.concepts.map((c) => c.id));
-    return games
+  const activityIdeas = (g: Activity) => g.data.ideas.map((c) => ideaOf.get(c.id)!);
+  const activitiesFor = (idea: Idea) => activities.filter((g) => g.data.ideas.some((c) => c.id === idea.id));
+  const ideaDomains = (c: Idea) => c.data.domains.map((d) => domainOf.get(d.id)!);
+  const ideasFor = (domain: Domain) => ideas.filter((c) => c.data.domains.some((d) => d.id === domain.id));
+  // Activities whose home is this domain, and activities from other domains that also teach it.
+  const activitiesIn = (domain: Domain) => activities.filter((g) => g.data.domain.id === domain.id);
+  const activitiesAlso = (domain: Domain) => activities.filter((g) => g.data.domain.id !== domain.id && activityDomains(g).some((d) => d.id === domain.id));
+  // Other activities that share at least one idea, most shared first.
+  const pairsWith = (g: Activity) => {
+    const mine = new Set(g.data.ideas.map((c) => c.id));
+    return activities
       .filter((o) => o.id !== g.id)
-      .map((o) => ({ game: o, shared: o.data.concepts.filter((c) => mine.has(c.id)).length }))
+      .map((o) => ({ activity: o, shared: o.data.ideas.filter((c) => mine.has(c.id)).length }))
       .filter((x) => x.shared > 0)
       .sort((a, b) => b.shared - a.shared)
-      .map((x) => x.game);
+      .map((x) => x.activity);
   };
 
   if (warnings.length && !globalThis.__csofflineWarned) {
@@ -91,11 +94,12 @@ async function load() {
   }
 
   return {
-    domains, concepts, games, guides,
+    domains, ideas, activities, guides,
     domain: (id: string) => domainOf.get(id)!,
-    concept: (id: string) => conceptOf.get(id)!,
+    idea: (id: string) => ideaOf.get(id)!,
     guide: (id: string) => guides.find((x) => x.id === id),
-    gameDomains, gameConcepts, gamesFor, conceptDomains, conceptsFor, gamesIn, gamesAlso, pairsWith,
+    studentActivities, educatorActivities,
+    activityDomains, activityIdeas, activitiesFor, ideaDomains, ideasFor, activitiesIn, activitiesAlso, pairsWith,
   };
 }
 

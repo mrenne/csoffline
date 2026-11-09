@@ -2,10 +2,10 @@
 
 export const SITE = {
   name: 'CS Offline',
-  description: 'Teach and learn computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged games, with little or no technology.',
+  description: 'Teach and learn computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics through unplugged activities, with little or no technology.',
   author: 'Mike Renne',
+  authorUrl: 'https://www.mikerenne.com',
   repo: 'https://github.com/mrenne/csoffline',
-  license: { name: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/' },
 };
 
 /** A path inside the site, with the GitHub Pages base path in front. Pass paths without the base. */
@@ -14,8 +14,12 @@ export function url(path = ''): string {
   return `${base}/${path.replace(/^\/+/, '')}`;
 }
 
-export const GAME_TYPE: Record<string, string> = {
-  card: 'Card game', board: 'Board game', 'role-play': 'Role-play', puzzle: 'Puzzle', other: 'Game',
+export const ACTIVITY_TYPE: Record<string, string> = {
+  'card-game': 'Card game', 'trading-card-game': 'Trading card game', 'board-game': 'Board game',
+  'role-play': 'Role-play', puzzle: 'Puzzle', simulation: 'Simulation', discussion: 'Discussion', other: 'Activity',
+};
+export const AUDIENCE: Record<string, string> = {
+  students: 'Students', educators: 'Educators', both: 'Students and educators',
 };
 export const GROUPING: Record<string, string> = {
   pairs: 'Pairs', 'small-groups': 'Small groups', 'whole-class': 'Whole class',

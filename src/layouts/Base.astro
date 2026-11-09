@@ -15,13 +15,13 @@ const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
 
 const nav = [
   { label: 'Domains', href: url('domains/') },
-  { label: 'Concepts', href: url('concepts/') },
+  { label: 'Activities', href: url('activities/') },
   { label: 'Educators', href: url('educators/') },
   { label: 'About', href: url('about/') },
 ];
 const path = Astro.url.pathname;
 const current = (href: string) => path === href || (href !== url('') && path.startsWith(href))
-  || (href === url('domains/') && path.startsWith(url('games/')));
+  || (href === url('domains/') && path.startsWith(url('ideas/')));
 ---
 <!doctype html>
 <html lang="en">
@@ -62,13 +62,13 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
           <h2>Explore</h2>
           <ul>
             <li><a href={url('domains/')}>Learning domains</a></li>
-            <li><a href={url('concepts/')}>Concepts</a></li>
+            <li><a href={url('activities/')}>Activities</a></li>
           </ul>
         </div>
         <div>
           <h2>Educators</h2>
           <ul>
-            <li><a href={url('educators/')}>Game catalog</a></li>
+            <li><a href={url('educators/')}>Activity catalog</a></li>
             <li><a href={url('about/#license')}>License</a></li>
           </ul>
         </div>
@@ -81,8 +81,7 @@ const current = (href: string) => path === href || (href !== url('') && path.sta
         </div>
       </div>
       <div class="legal">
-        <span>{SITE.name} by {SITE.author}.</span>
-        <span>Content licensed <a href={SITE.license.url} rel="license">{SITE.license.name}</a>.</span>
+        <span>{SITE.name} by <a href={SITE.authorUrl}>{SITE.author}</a>.</span>
       </div>
     </div>
   </footer>

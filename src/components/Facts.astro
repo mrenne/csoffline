@@ -1,17 +1,18 @@
 ---
-import type { Game } from '../lib/data';
-import { GAME_TYPE, GROUPING, range, grades } from '../lib/site';
+import type { Activity } from '../lib/data';
+import { ACTIVITY_TYPE, AUDIENCE, GROUPING, range, grades } from '../lib/site';
 
-interface Props { game: Game; educator?: boolean }
-const { game, educator = false } = Astro.props;
-const d = game.data;
+interface Props { activity: Activity; educator?: boolean }
+const { activity, educator = false } = Astro.props;
+const d = activity.data;
 ---
 <dl class="facts">
-  <dt>Type</dt><dd>{GAME_TYPE[d.game_type]}</dd>
-  <dt>Players</dt><dd>{range(d.players)} per game</dd>
-  <dt>Groups</dt><dd>{d.grouping.map((g) => GROUPING[g]).join(', ')}</dd>
-  <dt>Time</dt><dd>{range(d.minutes, 'minutes')}</dd>
-  <dt>Grades</dt><dd>{grades(d.grade_bands).replaceAll('Grades ', '')}</dd>
-  {educator && <><dt>Prep</dt><dd>{d.prep_minutes} minutes</dd></>}
+  <dt>Type</dt><dd>{ACTIVITY_TYPE[d.activity_type]}</dd>
+  <dt>For</dt><dd>{AUDIENCE[d.audience]}</dd>
+  {d.group_size && <><dt>Group size</dt><dd>{range(d.group_size, 'people')}</dd></>}
+  {d.grouping && <><dt>Groups</dt><dd>{d.grouping.map((g) => GROUPING[g]).join(', ')}</dd></>}
+  {d.minutes && <><dt>Time</dt><dd>{range(d.minutes, 'minutes')}</dd></>}
+  {d.grade_bands && <><dt>Grades</dt><dd>{grades(d.grade_bands).replaceAll('Grades ', '')}</dd></>}
+  {educator && d.prep_minutes !== undefined && <><dt>Prep</dt><dd>{d.prep_minutes} minutes</dd></>}
   {educator && d.materials.length > 0 && <><dt>Also need</dt><dd>{d.materials.join('; ')}</dd></>}
 </dl>

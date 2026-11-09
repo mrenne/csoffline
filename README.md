@@ -12,15 +12,15 @@ other.
 |---|---|
 | Name: **CS Offline** | Repo: `mrenne/csoffline` |
 | Every activity is **unplugged** | Students use no technology. Teachers may print handouts |
-| Six learning domains: **computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics** | Every game has one home domain |
+| Six learning domains: **computer science, computational thinking, data science, AI literacy, cybersecurity, and ethics** | Every activity has one home domain |
 | Audience: **middle and high school** (grades 6–12) | |
 | Everything is **free** | |
-| License: **CC BY-NC-SA 4.0** | See [LICENSE](LICENSE) |
+| License: **set per activity** | Nothing is Creative Commons unless its activity says so |
 
 ## System
 
 CS Offline will be a website where students and educators explore six learning domains through
-unplugged games. Each game has a home domain, and concepts connect games across domains. See the [system spec](docs/system-spec.md) for the content model,
+unplugged activities and resources, some of them games. Each activity has a home domain, and ideas connect activities across domains. See the [system spec](docs/system-spec.md) for the content model,
 site structure, technical design, phases, and open decisions.
 
 ## Working on the site
@@ -46,8 +46,9 @@ npm run build
 The site is **not live**. GitHub Actions builds it on every push, but only deploys when started by
 hand, after GitHub Pages is turned on (see `.github/workflows/site.yml`).
 
-Current content is placeholder: the six domains, five sample concepts, and two placeholder
-games standing in for the AI literacy and data science card games.
+Current content is mostly placeholder: the six domains, five sample ideas, and entries for
+the two games developed so far, **Data Science Deck** (a card game) and **Tokens TCG** (an AI
+literacy trading card game), whose details are still to be filled in.
 
 ## Archive
 
@@ -62,6 +63,5 @@ git switch archive/computation-quests
 
 ## License
 
-Unless otherwise noted, all content in this repository is licensed under the
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-(CC BY-NC-SA 4.0).
+Licensing is set per activity. Content is under Creative Commons only where its activity says so.
+The [LICENSE](LICENSE) file holds the CC BY-NC-SA 4.0 text for activities that use that license.

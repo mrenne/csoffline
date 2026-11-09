@@ -1,0 +1,107 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import AuthorSection from '../../../components/AuthorSection.astro';
+import Facts from '../../../components/Facts.astro';
+import ActivityCard from '../../../components/ActivityCard.astro';
+import { site, printableUrl, type Activity } from '../../../lib/data';
+import { url, ACTIVITY_TYPE } from '../../../lib/site';
+
+export async function getStaticPaths() {
+  const s = await site();
+  return s.educatorActivities.map((g) => ({ params: { activity: g.id }, props: { activity: g } }));
+}
+const { activity } = Astro.props as { activity: Activity };
+const s = await site();
+const guide = s.guide(activity.id);
+const Guide = guide ? (await render(guide)).Content : null;
+const ideas = s.activityIdeas(activity);
+const domains = s.activityDomains(activity);
+const pairs = s.pairsWith(activity).filter((a) => a.data.audience !== 'students').slice(0, 2);
+const PAPER: Record<string, string> = { letter: 'Letter', a4: 'A4', both: 'Letter and A4' };
+const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', both: 'Color or black and white' };
+---
+<Base title={activity.data.link ? activity.data.name : `${activity.data.name}: educator guide`} description={`How to run ${activity.data.name}: setup, printables, debrief, and standards.`}>
+  <PageHead
+    eyebrow={`${activity.data.link ? "For educators" : "Educator guide"} · ${ACTIVITY_TYPE[activity.data.activity_type]}`}
+    title={activity.data.name}
+    lead={activity.data.summary}
+    crumbs={[{ label: 'Educators', href: url('educators/') }, { label: activity.data.name }]}
+  >
+    <p style="margin-top:24px">{activity.data.audience === 'both' && <a class="btn light small" href={url(`activities/${activity.id}/`)}>See the student page</a>}</p>
+  </PageHead>
+  <section class="on-paper band">
+    <div class="wrap layout">
+      <div>
+        {activity.data.link ? (
+          <div class="card section-card">
+            <h2 style="font-size:1.5rem">Get it</h2>
+            <p>This resource is hosted by its creator.</p>
+            <a class="btn small" href={activity.data.link.url} rel="noopener">{activity.data.link.label}</a>
+          </div>
+        ) : (
+          <div class="card section-card">
+          <h2 style="font-size:1.5rem">Printables</h2>
+          {activity.data.printables.length === 0 && <p class="note">Printables for this activity have not been added yet.</p>}
+          <ul class="stack">
+            {activity.data.printables.map((p) => (
+              <li class="row-link download">
+                <span><strong>{p.title}</strong><span>{PAPER[p.paper]} · {COLOR[p.color]} · {p.copies}</span></span>
+                <a class="btn small" href={printableUrl(activity, p.file)} download>Download PDF</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        )}
+        {(Guide || !activity.data.link) && (
+          <article class="card prose section-card" style="max-width:none">
+            {Guide ? <Guide /> : <p class="note">The educator guide for this activity has not been written yet.</p>}
+          </article>
+        )}
+        {activity.data.variants.length > 0 && (
+          <div class="card section-card">
+            <h2 style="font-size:1.5rem">Variants</h2>
+            <ul class="stack">
+              {activity.data.variants.map((v) => <li><strong>{v.name}.</strong> {v.summary}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <aside>
+        <div class="card">
+          <h2 style="font-size:1.25rem">At a glance</h2>
+          <Facts activity={activity} educator />
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Teaches</h2>
+          <ul class="chips" style="margin-bottom:14px">
+            {ideas.map((c) => <li><a class="chip" href={url(`ideas/${c.id}/`)}>{c.data.name}</a></li>)}
+          </ul>
+          <p class="meta" style="margin:0">Also touches: {domains.slice(1).map((d) => d.data.name).join(', ') || 'no other domains'}</p>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Standards</h2>
+          {activity.data.standards.length ? (
+            <ul class="chips">{activity.data.standards.map((code) => <li class="chip">{code}</li>)}</ul>
+          ) : <p style="margin:0">Not listed yet.</p>}
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.25rem">Learning domain</h2>
+          <a class="row-link" href={url(`domains/${domains[0].id}/`)}><span><strong>{domains[0].data.name}</strong><span>{domains[0].data.summary}</span></span></a>
+        </div>
+        {activity.data.credits && <p class="meta">{activity.data.credits}</p>}
+        {activity.data.license && <p class="meta">License: {activity.data.license}</p>}
+      </aside>
+    </div>
+  </section>
+  <AuthorSection activity={activity} />
+  {pairs.length > 0 && (
+    <section class="on-orange band">
+      <div class="wrap">
+        <div class="band-head"><span class="eyebrow">Pairs well with</span><h2>Activities that share these ideas</h2></div>
+        <div class="grid two">{pairs.map((g) => <ActivityCard activity={g} educator />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

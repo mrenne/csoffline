@@ -1,0 +1,22 @@
+---
+import { site, type Activity } from '../lib/data';
+import { url, ACTIVITY_TYPE, AUDIENCE, range } from '../lib/site';
+
+interface Props { activity: Activity; educator?: boolean }
+const { activity, educator = false } = Astro.props;
+const s = await site();
+const domains = s.activityDomains(activity);
+const toEducator = activity.data.audience === 'educators' || (educator && activity.data.audience !== 'students');
+const d = activity.data;
+const details = [`For ${AUDIENCE[d.audience].toLowerCase()}`, d.group_size && range(d.group_size, 'people'), d.minutes && range(d.minutes, 'min')].filter(Boolean).join(' · ');
+const href = toEducator ? url(`educators/activities/${activity.id}/`) : url(`activities/${activity.id}/`);
+---
+<a class="card" href={href}>
+  <span class="eyebrow accent">{ACTIVITY_TYPE[activity.data.activity_type]} · {domains[0].data.name}</span>
+  <h3>{activity.data.name}</h3>
+  <p>{activity.data.summary}</p>
+  <p class="meta">{details}</p>
+  <ul class="chips" aria-label="Domains">
+    {domains.map((d) => <li class="chip">{d.data.name}</li>)}
+  </ul>
+</a>

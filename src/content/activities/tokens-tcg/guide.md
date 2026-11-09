@@ -9,7 +9,7 @@ Placeholder overview for educators.
 
 Placeholder.
 
-## Running the game
+## Running the activity
 
 Placeholder.
 

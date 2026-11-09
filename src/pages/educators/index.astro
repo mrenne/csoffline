@@ -1,30 +1,30 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
-import GameCard from '../../components/GameCard.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
 import { site } from '../../lib/data';
-import { GAME_TYPE } from '../../lib/site';
+import { ACTIVITY_TYPE } from '../../lib/site';
 
 const s = await site();
-const concepts = s.concepts.filter((c) => s.gamesFor(c).length);
-const types = [...new Set(s.games.map((g) => g.data.game_type))];
+const ideas = s.ideas.filter((c) => s.activitiesFor(c).length);
+const types = [...new Set(s.educatorActivities.map((g) => g.data.activity_type))];
 ---
-<Base title="Educators" description="Find an unplugged CS Offline game by domain, concept, grade, time, or group size.">
-  <PageHead eyebrow="For educators" title="Game catalog"
-    lead="Every game is unplugged and free, with a facilitation guide and printables. Filter by what you need to teach." />
+<Base title="Educators" description="Find an unplugged CS Offline activity by domain, idea, grade, time, or group size.">
+  <PageHead eyebrow="For educators" title="Activity catalog"
+    lead="Unplugged activities and resources for teaching, and for talking with other educators. Filter by what you need." />
   <section class="on-paper band">
     <div class="wrap">
-      <form class="filters" id="filters" aria-label="Filter games" hidden>
+      <form class="filters" id="filters" aria-label="Filter activities" hidden>
         <label>Domain
           <select name="domain">
             <option value="">All domains</option>
             {s.domains.map((d) => <option value={d.id}>{d.data.name}</option>)}
           </select>
         </label>
-        <label>Concept
-          <select name="concept">
-            <option value="">All concepts</option>
-            {concepts.map((c) => <option value={c.id}>{c.data.name}</option>)}
+        <label>Idea
+          <select name="idea">
+            <option value="">All ideas</option>
+            {ideas.map((c) => <option value={c.id}>{c.data.name}</option>)}
           </select>
         </label>
         <label>Grades
@@ -44,29 +44,29 @@ const types = [...new Set(s.games.map((g) => g.data.game_type))];
         <label>Type
           <select name="type">
             <option value="">All types</option>
-            {types.map((t) => <option value={t}>{GAME_TYPE[t]}</option>)}
+            {types.map((t) => <option value={t}>{ACTIVITY_TYPE[t]}</option>)}
           </select>
         </label>
         <output id="count" aria-live="polite"></output>
       </form>
       <ul class="grid two" id="results" style="list-style:none;margin:0;padding:0">
-        {s.games.map((g) => (
+        {s.educatorActivities.map((g) => (
           <li
-            data-domains={s.gameDomains(g).map((d) => d.id).join(' ')}
-            data-concepts={g.data.concepts.map((c) => c.id).join(' ')}
-            data-grades={g.data.grade_bands.join(' ')}
-            data-minutes={g.data.minutes.min}
-            data-type={g.data.game_type}
-          ><GameCard game={g} educator /></li>
+            data-domains={s.activityDomains(g).map((d) => d.id).join(' ')}
+            data-ideas={g.data.ideas.map((c) => c.id).join(' ')}
+            data-grades={(g.data.grade_bands ?? []).join(' ')}
+            data-minutes={g.data.minutes?.min ?? ''}
+            data-type={g.data.activity_type}
+          ><ActivityCard activity={g} educator /></li>
         ))}
       </ul>
-      <p id="none" class="note" hidden>No games match those filters yet.</p>
+      <p id="none" class="note" hidden>No activities match those filters yet.</p>
     </div>
   </section>
 </Base>
 
 <script>
-  // Filters are an enhancement: without JavaScript every game is listed.
+  // Filters are an enhancement: without JavaScript every activity is listed.
   const form = document.getElementById('filters') as HTMLFormElement;
   const items = [...document.querySelectorAll<HTMLLIElement>('#results > li')];
   const count = document.getElementById('count')!;
@@ -85,14 +85,14 @@ const types = [...new Set(s.games.map((g) => g.data.game_type))];
     for (const li of items) {
       const d = li.dataset;
       const ok = (!f.domain || d.domains!.split(' ').includes(f.domain))
-        && (!f.concept || d.concepts!.split(' ').includes(f.concept))
+        && (!f.idea || d.ideas!.split(' ').includes(f.idea))
         && (!f.grades || d.grades!.split(' ').includes(f.grades))
         && (!f.time || Number(d.minutes) <= Number(f.time))
         && (!f.type || d.type === f.type);
       li.hidden = !ok;
       if (ok) shown++;
     }
-    count.textContent = `${shown} ${shown === 1 ? 'game' : 'games'}`;
+    count.textContent = `${shown} ${shown === 1 ? 'activity' : 'activities'}`;
     none.hidden = shown > 0;
     const q = new URLSearchParams(Object.entries(f).filter(([, v]) => v));
     history.replaceState(null, '', q.toString() ? `?${q}` : location.pathname);

@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
-import GameCard from '../../components/GameCard.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
 import { site, type Domain } from '../../lib/data';
 import { url } from '../../lib/site';
 
@@ -13,9 +13,9 @@ export async function getStaticPaths() {
 const { domain } = Astro.props as { domain: Domain };
 const s = await site();
 const { Content } = await render(domain);
-const concepts = s.conceptsFor(domain);
-const games = s.gamesIn(domain);
-const also = s.gamesAlso(domain);
+const ideas = s.ideasFor(domain);
+const activities = s.activitiesIn(domain);
+const also = s.activitiesAlso(domain);
 const others = s.domains.filter((d) => d.id !== domain.id);
 ---
 <Base title={domain.data.name} description={domain.data.summary}>
@@ -27,8 +27,8 @@ const others = s.domains.filter((d) => d.id !== domain.id);
       <aside>
         <div class="card">
           <h2 style="font-size:1.25rem">Ideas</h2>
-          {concepts.length ? (
-            <ul class="chips">{concepts.map((c) => <li><a class="chip" href={url(`concepts/${c.id}/`)}>{c.data.name}</a></li>)}</ul>
+          {ideas.length ? (
+            <ul class="chips">{ideas.map((c) => <li><a class="chip" href={url(`ideas/${c.id}/`)}>{c.data.name}</a></li>)}</ul>
           ) : <p style="margin:0">Coming soon.</p>}
         </div>
         <div class="card">
@@ -42,15 +42,15 @@ const others = s.domains.filter((d) => d.id !== domain.id);
   </section>
   <section class="on-orange band">
     <div class="wrap">
-      <div class="band-head"><span class="eyebrow">Games</span><h2>{games.length ? `${domain.data.name} games` : 'Games coming soon'}</h2></div>
-      <div class="grid two">{games.map((g) => <GameCard game={g} />)}</div>
+      <div class="band-head"><span class="eyebrow">Activities</span><h2>{activities.length ? `${domain.data.name} activities` : 'Activities coming soon'}</h2></div>
+      <div class="grid two">{activities.map((g) => <ActivityCard activity={g} />)}</div>
     </div>
   </section>
   {also.length > 0 && (
     <section class="on-paper band">
       <div class="wrap">
-        <div class="band-head"><span class="eyebrow accent">Also teaching {domain.data.name}</span><h2>Games from other domains</h2></div>
-        <div class="grid two">{also.map((g) => <GameCard game={g} />)}</div>
+        <div class="band-head"><span class="eyebrow accent">Also teaching {domain.data.name}</span><h2>Activities from other domains</h2></div>
+        <div class="grid two">{also.map((g) => <ActivityCard activity={g} />)}</div>
       </div>
     </section>
   )}

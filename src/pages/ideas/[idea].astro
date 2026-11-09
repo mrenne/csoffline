@@ -2,30 +2,30 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
-import GameCard from '../../components/GameCard.astro';
-import { site, sections, type Concept } from '../../lib/data';
+import ActivityCard from '../../components/ActivityCard.astro';
+import { site, sections, type Idea } from '../../lib/data';
 import { url } from '../../lib/site';
 
 export async function getStaticPaths() {
   const s = await site();
-  return s.concepts.map((c) => ({ params: { concept: c.id }, props: { concept: c } }));
+  return s.ideas.map((c) => ({ params: { idea: c.id }, props: { idea: c } }));
 }
-const { concept } = Astro.props as { concept: Concept };
+const { idea } = Astro.props as { idea: Idea };
 const s = await site();
-await render(concept);
-const parts = sections(concept.rendered?.html ?? '');
+await render(idea);
+const parts = sections(idea.rendered?.html ?? '');
 const student = parts['whats-really-going-on'];
 const educator = ['background', 'misconceptions'].map((k) => parts[k]).filter(Boolean);
-const games = s.gamesFor(concept);
-const domains = s.conceptDomains(concept);
-const related = concept.data.related.map((r) => s.concept(r.id));
+const activities = s.activitiesFor(idea);
+const domains = s.ideaDomains(idea);
+const related = idea.data.related.map((r) => s.idea(r.id));
 ---
-<Base title={concept.data.name} description={concept.data.student_summary}>
+<Base title={idea.data.name} description={idea.data.student_summary}>
   <PageHead
     eyebrow={domains.map((d) => d.data.name).join(' · ')}
-    title={concept.data.name}
-    lead={concept.data.student_summary}
-    crumbs={[{ label: 'Concepts', href: url('concepts/') }, { label: concept.data.name }]}
+    title={idea.data.name}
+    lead={idea.data.student_summary}
+    crumbs={[{ label: 'Domains', href: url('domains/') }, { label: domains[0].data.name, href: url(`domains/${domains[0].id}/`) }, { label: idea.data.name }]}
   />
   <section class="on-paper band">
     <div class="wrap layout">
@@ -49,7 +49,7 @@ const related = concept.data.related.map((r) => s.concept(r.id));
         {related.length > 0 && (
           <div class="card">
             <h2 style="font-size:1.25rem">Related ideas</h2>
-            <ul class="chips">{related.map((c) => <li><a class="chip" href={url(`concepts/${c.id}/`)}>{c.data.name}</a></li>)}</ul>
+            <ul class="chips">{related.map((c) => <li><a class="chip" href={url(`ideas/${c.id}/`)}>{c.data.name}</a></li>)}</ul>
           </div>
         )}
       </aside>
@@ -58,10 +58,10 @@ const related = concept.data.related.map((r) => s.concept(r.id));
   <section class="on-orange band">
     <div class="wrap">
       <div class="band-head">
-        <span class="eyebrow">Play it</span>
-        <h2>{games.length ? `Games about ${concept.data.name.toLowerCase()}` : 'Games coming soon'}</h2>
+        <span class="eyebrow">Try it</span>
+        <h2>{activities.length ? `Activities about ${idea.data.name.toLowerCase()}` : 'Activities coming soon'}</h2>
       </div>
-      <div class="grid two">{games.map((g) => <GameCard game={g} />)}</div>
+      <div class="grid two">{activities.map((g) => <ActivityCard activity={g} />)}</div>
     </div>
   </section>
 </Base>

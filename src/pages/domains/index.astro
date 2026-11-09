@@ -7,20 +7,20 @@ import { url } from '../../lib/site';
 
 const s = await site();
 ---
-<Base title="Learning domains" description="The six learning domains of CS Offline, each with its own ideas and unplugged games.">
-  <PageHead eyebrow="Explore" title="Learning domains" lead="Six areas of computing, each with its own ideas and games. Pick one, play its games, and see how the ideas work in real computers." />
+<Base title="Learning domains" description="The six learning domains of CS Offline, each with its own ideas and unplugged activities.">
+  <PageHead eyebrow="Explore" title="Learning domains" lead="Six areas of computing, each with its own ideas and activities. Pick one, try its activities, and see how the ideas work in real computers." />
   <section class="on-orange band">
     <div class="wrap">
       <ol class="grid" style="list-style:none;margin:0;padding:0">
         {s.domains.map((d, i) => {
-          const n = s.gamesIn(d).length;
+          const n = s.activitiesIn(d).length;
           return (
             <li>
               <a class={`card ${i % 2 ? 'tilt-r' : 'tilt-l'}`} href={url(`domains/${d.id}/`)}>
                 <div class={`tile tint-${d.data.color}`}><DomainIcon name={d.data.icon} /></div>
                 <h2 style="font-size:1.5rem">{d.data.name}</h2>
                 <p>{d.data.summary}</p>
-                <p class="meta">{n ? `${n} ${n === 1 ? 'game' : 'games'}` : 'Games coming soon'} · {s.conceptsFor(d).length} ideas</p>
+                <p class="meta">{n ? `${n} ${n === 1 ? 'activity' : 'activities'}` : 'Activities coming soon'} · {s.ideasFor(d).length} {s.ideasFor(d).length === 1 ? 'idea' : 'ideas'}</p>
               </a>
             </li>
           );

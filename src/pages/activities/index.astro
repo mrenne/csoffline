@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
+import { site } from '../../lib/data';
+
+const s = await site();
+---
+<Base title="Activities" description="Every CS Offline activity, grouped by learning domain.">
+  <PageHead eyebrow="Explore" title="Activities" lead="Games and other unplugged activities for students, grouped by learning domain. Pick one to see how it works." />
+  {s.domains.map((d) => ({ d, list: s.activitiesIn(d).filter((a) => a.data.audience !== 'educators') })).filter((x) => x.list.length).map(({ d, list }, i) => (
+    <section class={`${i % 2 ? 'on-paper' : 'on-orange'} band`}>
+      <div class="wrap">
+        <div class="band-head"><h2>{d.data.name}</h2></div>
+        <div class="grid two">{list.map((a) => <ActivityCard activity={a} />)}</div>
+      </div>
+    </section>
+  ))}
+</Base>

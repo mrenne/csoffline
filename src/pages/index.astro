@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import DomainIcon from '../components/DomainIcon.astro';
-import GameCard from '../components/GameCard.astro';
+import ActivityCard from '../components/ActivityCard.astro';
 import { site } from '../lib/data';
 import { url } from '../lib/site';
 
@@ -14,7 +14,7 @@ const s = await site();
         <span class="pill">Unplugged · Grades 6–12 · Free</span>
         <h1>CS <span class="q">Offline</span></h1>
         <p class="tagline">Computer science, <span class="hl">offline</span>.</p>
-        <p class="lead">Play games with paper, cards, and the people around you, then find out how
+        <p class="lead">Learn through games and activities with paper, cards, and the people around you, then find out how
           the same ideas work inside real computers, data, and AI.</p>
         <div class="actions">
           <a class="btn" href={url('domains/')}>Explore the domains →</a>
@@ -38,18 +38,18 @@ const s = await site();
     <div class="wrap">
       <div class="band-head">
         <span class="eyebrow">Six learning domains</span>
-        <h2>Pick a domain. Play a game.</h2>
-        <p>Every game lives in one learning domain, and most of its ideas reach into others.</p>
+        <h2>Pick a domain. Try an activity.</h2>
+        <p>Every activity lives in one learning domain, and most of its ideas reach into others.</p>
       </div>
       <div class="grid">
         {s.domains.map((d, i) => {
-          const n = s.gamesIn(d).length;
+          const n = s.activitiesIn(d).length;
           return (
             <a class={`card ${i % 2 ? 'tilt-r' : 'tilt-l'}`} href={url(`domains/${d.id}/`)}>
               <div class={`tile tint-${d.data.color}`}><DomainIcon name={d.data.icon} /></div>
               <h3>{d.data.name}</h3>
               <p>{d.data.summary}</p>
-              <p class="meta">{n ? `${n} ${n === 1 ? 'game' : 'games'}` : 'Games coming soon'}</p>
+              <p class="meta">{n ? `${n} ${n === 1 ? 'activity' : 'activities'}` : 'Activities coming soon'}</p>
             </a>
           );
         })}
@@ -61,13 +61,13 @@ const s = await site();
     <div class="wrap">
       <div class="band-head">
         <span class="eyebrow">How it works</span>
-        <h2>Play it. Then see what's really going on.</h2>
+        <h2>Try it. Then see what's really going on.</h2>
       </div>
       <div class="grid">
         <div class="card tilt-l">
           <div class="tile tint-orange"><DomainIcon name="puzzle" /></div>
-          <h3>Play unplugged</h3>
-          <p>Every game is played with paper and cards. No devices, accounts, or Wi-Fi.</p>
+          <h3>Learn unplugged</h3>
+          <p>Every activity uses paper, cards, or conversation. No devices, accounts, or Wi-Fi.</p>
         </div>
         <div class="card tilt-r">
           <div class="tile tint-sky"><DomainIcon name="chip" /></div>
@@ -77,21 +77,21 @@ const s = await site();
         <div class="card tilt-l">
           <div class="tile tint-mint"><DomainIcon name="chart" /></div>
           <h3>Teach it</h3>
-          <p>Educators get a guide, printables, and standards for every game.</p>
+          <p>Educators get guides, printables, and standards.</p>
         </div>
       </div>
     </div>
   </section>
 
-  {s.games.length > 0 && (
+  {s.studentActivities.length > 0 && (
     <section class="on-paper band">
       <div class="wrap">
         <div class="band-head">
-          <span class="eyebrow accent">Games</span>
-          <h2>Ready to play</h2>
+          <span class="eyebrow accent">Activities</span>
+          <h2>Ready to use</h2>
         </div>
         <div class="grid two">
-          {s.games.map((g) => <GameCard game={g} />)}
+          {s.studentActivities.map((g) => <ActivityCard activity={g} />)}
         </div>
       </div>
     </section>
@@ -100,10 +100,10 @@ const s = await site();
   <section class="on-navy band">
     <div class="wrap" style="text-align:center">
       <h2>Bring it to your classroom</h2>
-      <p class="lead" style="max-width:56ch;margin:0 auto 28px">Find a game by domain, idea, grade, or time, then print everything you need.</p>
+      <p class="lead" style="max-width:56ch;margin:0 auto 28px">Find an activity by domain, idea, grade, or time, then print everything you need.</p>
       <div class="actions" style="justify-content:center">
-        <a class="btn" href={url('educators/')}>Open the game catalog</a>
-        <a class="btn light" href={url('concepts/')}>Browse the ideas</a>
+        <a class="btn" href={url('educators/')}>Open the activity catalog</a>
+        <a class="btn light" href={url('activities/')}>Browse all activities</a>
       </div>
     </div>
   </section>
