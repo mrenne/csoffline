@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo.png" alt="CS Offline logo" width="323">
+  <img src="public/logo-wordmark.jpg" alt="Computer Science Offline logo" width="600">
 </p>
 
 <h1 align="center">CS Offline</h1>

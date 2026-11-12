@@ -15,7 +15,7 @@ export function url(path = ''): string {
 }
 
 export const ACTIVITY_TYPE: Record<string, string> = {
-  'card-game': 'Card game', 'trading-card-game': 'Trading card game', 'board-game': 'Board game',
+  'card-game': 'Card game', 'trading-card-game': 'Trading card game', 'board-game': 'Board game', 'pencil-and-paper-game': 'Pencil-and-paper game',
   'role-play': 'Role-play', puzzle: 'Puzzle', simulation: 'Simulation', discussion: 'Discussion', other: 'Activity',
 };
 export const AUDIENCE: Record<string, string> = {
@@ -25,5 +25,5 @@ export const GROUPING: Record<string, string> = {
   pairs: 'Pairs', 'small-groups': 'Small groups', 'whole-class': 'Whole class',
 };
 export const range = (r: { min: number; max: number }, unit = '') =>
-  (r.min === r.max ? `${r.min}` : `${r.min}–${r.max}`) + (unit ? ` ${unit}` : '');
+  (r.min === r.max ? `${r.min}` : `${r.min}–${r.max}`) + (unit ? ` ${r.max === 1 && unit === 'people' ? 'person' : unit}` : '');
 export const grades = (bands: string[]) => bands.map((b) => `Grades ${b.replace('-', '–')}`).join(', ');

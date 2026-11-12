@@ -60,8 +60,8 @@ const activities = defineCollection({
     domain: reference('domains'),
     summary: z.string(),
     ideas: z.array(reference('ideas')).min(1),
-    // Some activities are games (card-game, trading-card-game, board-game); others are not.
-    activity_type: z.enum(['card-game', 'trading-card-game', 'board-game', 'role-play', 'puzzle', 'simulation', 'discussion', 'other']),
+    // Some activities are games (card-game, trading-card-game, board-game, pencil-and-paper-game); others are not.
+    activity_type: z.enum(['card-game', 'trading-card-game', 'board-game', 'pencil-and-paper-game', 'role-play', 'puzzle', 'simulation', 'discussion', 'other']),
     audience: z.enum(['students', 'educators', 'both']),
     // Where to get it, for an activity hosted or sold elsewhere.
     link: z.object({ label: z.string(), url: z.url() }).optional(),

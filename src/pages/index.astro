@@ -21,7 +21,7 @@ const s = await site();
           <a class="btn light" href={url('educators/')}>For educators</a>
         </div>
       </div>
-      <img class="hero-art" src={url('logo.png')} alt="An open book showing cards, layered sheets, and a network of connected nodes" width="323" height="228" />
+      <img class="hero-art" src={url('logo-icon.png')} alt="CS Offline logo: an unplugged plug" width="512" height="512" />
     </div>
   </section>
 
@@ -113,13 +113,13 @@ const s = await site();
   }
   .lead { font-size: 1.2rem; max-width: 46ch; }
   .actions { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
-  .hero-art { max-width: 440px; width: 100%; height: auto; justify-self: center; }
+  .hero-art { max-width: 360px; width: 100%; height: auto; justify-self: center; border: 3px solid var(--ink); border-radius: 32px; box-shadow: var(--shadow); transform: rotate(3deg); }
   @media (prefers-reduced-motion: no-preference) {
     .r1 { animation: spin 60s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   }
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: 1fr; }
-    .hero-art { max-width: 300px; }
+    .hero-art { max-width: 240px; }
   }
 </style>

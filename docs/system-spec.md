@@ -114,7 +114,7 @@ Body sections, by heading:
 | `domain` | domain ref | yes | The home domain |
 | `summary` | string | yes | One sentence |
 | `ideas` | idea refs | yes | At least one. Other domains are derived from these |
-| `activity_type` | enum | yes | `card-game` \| `trading-card-game` \| `board-game` \| `role-play` \| `puzzle` \| `simulation` \| `discussion` \| `other` |
+| `activity_type` | enum | yes | `card-game` \| `trading-card-game` \| `board-game` \| `pencil-and-paper-game` \| `role-play` \| `puzzle` \| `simulation` \| `discussion` \| `other` |
 | `audience` | enum | yes | `students` \| `educators` \| `both`. Decides which pages exist (see 6.4) |
 | `link` | {label, url} | no | Where to get an activity hosted or sold elsewhere. With a link, printables and a guide are not expected, and the group, time, prep, and grade fields below are optional |
 | `group_size` | {min, max} | yes | People per group |
