@@ -23,6 +23,7 @@ variants:
     summary: "You're a bot that works like a web crawler, indexing an old website five floors deep before it shuts down on Friday. Floors cover loops, variables and IF / ELSE, binary numbers, passwords and ciphers, and an AI that sorts visitors wrong."
   - name: "Dungeon 2: The Smartphone"
     summary: "You go inside a smartphone that has been acting strangely. Floors cover flowcharts, REPEAT UNTIL loops, pixels, input, processing, storage, and output, and training an AI on a skewed sample."
+credits: "The engine that builds the booklets (build.py and engine/ in the repo) is licensed under MIT."
 license: "CC BY-NC-SA 4.0"
 license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
 status: published
