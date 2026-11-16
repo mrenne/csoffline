@@ -6,4 +6,4 @@ icon: chip
 order: 1
 ---
 
-Placeholder introduction for Computer Science. Replace it with a short overview of the domain.
+Every app, website, and game runs on the same basic ideas: information stored as 0s and 1s, and instructions followed one step at a time. In this domain you'll find out how computers represent the world, how programs make decisions and repeat steps, and how the parts of a computer work together, all by acting it out on paper.

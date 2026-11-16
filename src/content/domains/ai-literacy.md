@@ -6,4 +6,4 @@ icon: spark
 order: 4
 ---
 
-Placeholder introduction for AI Literacy. Replace it with a short overview of the domain.
+AI tools can write, sort, recommend, and recognize, but they don't think the way people do. In this domain you'll see how AI systems learn from examples, why their training data matters so much, and how to judge when to trust what an AI tells you.
