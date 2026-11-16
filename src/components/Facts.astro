@@ -14,5 +14,5 @@ const d = activity.data;
   {d.minutes && <><dt>Time</dt><dd>{range(d.minutes, 'minutes')}</dd></>}
   {d.grade_bands && <><dt>Grades</dt><dd>{grades(d.grade_bands).replaceAll('Grades ', '')}</dd></>}
   {educator && d.prep_minutes !== undefined && <><dt>Prep</dt><dd>{d.prep_minutes} minutes</dd></>}
-  {educator && d.materials.length > 0 && <><dt>Also need</dt><dd>{d.materials.join('; ')}</dd></>}
+  {(educator || d.audience === 'students') && d.materials.length > 0 && <><dt>Also need</dt><dd>{d.materials.join('; ')}</dd></>}
 </dl>

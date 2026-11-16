@@ -6,7 +6,7 @@ import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const gradeBand = z.enum(['6-8', '9-12']);
+const gradeBand = z.enum(['3-5', '6-8', '9-12']);
 const status = z.enum(['draft', 'published']);
 const range = z.object({ min: z.number().int().min(1), max: z.number().int().min(1) })
   .refine((r) => r.max >= r.min, { message: 'max must be at least min' });

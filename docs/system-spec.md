@@ -121,7 +121,7 @@ Body sections, by heading:
 | `grouping` | enum list | yes | `pairs` \| `small-groups` \| `whole-class` |
 | `minutes` | {min, max} | yes | Typical class time |
 | `prep_minutes` | number | yes | Teacher prep |
-| `grade_bands` | enum list | yes | `6-8` \| `9-12` |
+| `grade_bands` | enum list | yes | `3-5` \| `6-8` \| `9-12` |
 | `materials` | string list | yes | Beyond the printables, e.g., "1 die per group" |
 | `printables` | printable list | yes | See 5.4. At least one |
 | `variants` | variant list | no | See 5.5 |
