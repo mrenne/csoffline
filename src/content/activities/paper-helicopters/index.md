@@ -7,10 +7,9 @@ activity_type: other
 audience: students
 link: { label: "Download the template (PDF)", url: "https://d2pn8kiwq2w21t.cloudfront.net/documents/paperhelicopter_worksheet.pdf" }
 author:
-  name: Mike Renne
-  role: designer
-  bio: "Mike Renne is a computer science and technology educator."
-  link: { label: "LinkedIn", url: "https://www.linkedin.com/in/michaelrenne/" }
+  name: NASA JPL Education
+  bio: "NASA's Jet Propulsion Laboratory shares STEM projects, lessons, and activities for students and educators."
+  link: { label: "Visit NASA JPL Education", url: "https://www.jpl.nasa.gov/edu/resources/" }
 grouping: [pairs, small-groups, whole-class]
 minutes: { min: 60, max: 60 }
 grade_bands: [3-5, 6-8, 9-12]
