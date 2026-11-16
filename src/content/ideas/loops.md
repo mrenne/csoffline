@@ -11,8 +11,10 @@ An algorithm is a set of steps that solves a problem, written clearly enough tha
 
 ## Background
 
-Placeholder for educator background.
+An algorithm is a finite, unambiguous sequence of steps for solving a class of problems. Three building blocks cover most algorithms: sequence (steps in order), selection (if/else choices), and iteration (loops). Loops can repeat a set number of times (count-controlled) or until a condition changes (condition-controlled). Unplugged activities that have students write instructions for a partner to follow literally are effective at showing why precision matters and where loops save effort.
 
 ## Misconceptions
 
-- Placeholder misconception.
+- An algorithm has to be written in code. Algorithms exist independently of any programming language; code is one way to express them.
+- The computer will figure out what I meant. Computers follow instructions exactly, so missing or ambiguous steps cause bugs.
+- A loop runs its body once and then checks if it's done. Students often lose track of when the condition is checked and how many times the loop actually runs.

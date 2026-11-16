@@ -11,8 +11,10 @@ A table with thousands of numbers is hard to read, but a chart can show a patter
 
 ## Background
 
-Placeholder for educator background.
+Good visualizations match the chart to the question: bar charts compare categories, line charts show change over time, scatter plots show relationships between two variables, and maps show location. Design choices such as axis scale, a truncated y-axis, color, and what gets grouped together strongly affect what viewers conclude. Having students make two charts of the same data that tell different stories is an effective way to teach both making and critically reading visualizations.
 
 ## Misconceptions
 
-- Placeholder misconception.
+- A chart shows the data objectively. Every chart reflects choices about scale, grouping, and what to include.
+- Any chart type works for any data. A pie chart of change over time, for example, hides the trend a line chart would show.
+- Fancier charts are better. 3D effects and decoration usually make values harder to read accurately.

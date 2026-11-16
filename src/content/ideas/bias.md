@@ -11,8 +11,10 @@ Computers can seem fair because they follow rules exactly, but those rules and t
 
 ## Background
 
-Placeholder for educator background.
+Bias in computing usually enters through data (who was sampled, how it was labeled, what history it records), through design choices (which features are used, what counts as success), or through how a system is deployed. Well-known examples include facial recognition with uneven error rates and hiring tools trained on past decisions. Students can investigate bias without code by examining who is in a dataset, comparing error rates across groups, and asking who benefits and who bears the cost of mistakes.
 
 ## Misconceptions
 
-- Placeholder misconception.
+- Computers can't be biased because they just follow math. Systems learn from human data and human design decisions, so they can repeat and scale human bias.
+- Bias always comes from someone with bad intentions. Most bias is unintended, coming from missing data or unexamined assumptions.
+- More data automatically fixes bias. More of the same skewed data can make a biased pattern stronger.

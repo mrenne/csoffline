@@ -11,8 +11,10 @@ In computer science, a graph is a set of dots, called nodes, joined by lines, ca
 
 ## Background
 
-Placeholder for educator background.
+A graph is a set of vertices (nodes) and edges. Edges can be directed (one-way) or undirected, and weighted (with costs such as distance or time) or unweighted. Graphs model road networks, social networks, the web, dependencies, and state machines. Classic problems include shortest path (GPS), Euler paths (use every edge once, easy to check), and Hamiltonian cycles and the traveling salesperson problem (visit every node once, with no known fast algorithm). Students should not confuse these graphs with the charts they make in math class.
 
 ## Misconceptions
 
-- Placeholder misconception.
+- A graph is a chart of data with axes. In computer science, a graph is a network of nodes and edges.
+- The layout of a graph matters. Two drawings with the same nodes and connections are the same graph, no matter where the dots are placed.
+- If you can't find a route, there isn't one. Some problems need a proof that no solution exists, and some are hard even for computers.
