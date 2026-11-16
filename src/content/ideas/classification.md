@@ -7,7 +7,7 @@ related: [training-data]
 
 ## What's really going on
 
-Placeholder. Explain, for students, how classification works in real computers and systems.
+Classification means sorting things into groups based on their features. A spam filter sorts email into spam and not spam, and a photo app sorts pictures by the faces in them. Many AI systems learn to classify by studying lots of labeled examples and finding the features that separate one group from another. When the examples or the features are poor, the system makes mistakes, sometimes with confidence.
 
 ## Background
 

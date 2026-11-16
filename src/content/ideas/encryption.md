@@ -7,7 +7,7 @@ related: []
 
 ## What's really going on
 
-Placeholder. Explain, for students, how this idea works in real computers and systems.
+Encryption scrambles a message so only someone with the right key can read it. When you log in to a website or send a message, encryption keeps other people on the network from reading it. Passwords prove who you are, so strong ones are long and hard to guess. Ciphers have been around for thousands of years, but today computers do the scrambling with math that would take ages to break without the key.
 
 ## Background
 
