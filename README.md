@@ -46,9 +46,9 @@ npm run build
 The site is **not live**. GitHub Actions builds it on every push, but only deploys when started by
 hand, after GitHub Pages is turned on (see `.github/workflows/site.yml`).
 
-Current content is mostly placeholder: the six domains, five sample ideas, and entries for
-the two games developed so far, **Data Science Deck** (a card game) and **Tokens TCG** (an AI
-literacy trading card game), whose details are still to be filled in.
+Current content includes the six domains, 13 ideas, and eight activities, among them
+**Talent Stack: Data Science Edition** (a card game about data careers) and **Tokens TCG** (an AI
+literacy trading card game).
 
 ## Archive
 
