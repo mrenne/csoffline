@@ -5,7 +5,7 @@
 **CS Offline** is a set of teacher and student resources for teaching computer science with little to no screen usage. Every activity is offline: students use paper, cardboard, cards, dice and, most importantly, each other.
 
 
-> Status: **live** at https://mrenne.github.io/csoffline/ (since November 2026), with activities still being added.
+> Status: **live** at https://www.csoffline.org/ (since November 2026), with activities still being added.
 
 ## Decided
 
@@ -35,7 +35,7 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:4321/csoffline/. Content lives in `src/content/` (see the
+Then open http://localhost:4321/. Content lives in `src/content/` (see the
 [system spec](docs/system-spec.md), section 5). The build checks the content and stops with a
 message if something is broken:
 
@@ -43,7 +43,7 @@ message if something is broken:
 npm run build
 ```
 
-The site is **live** at https://mrenne.github.io/csoffline/, published with GitHub Pages. GitHub
+The site is **live** at https://www.csoffline.org/, published with GitHub Pages. GitHub
 Actions builds it on every push but only deploys when started by hand: in the Actions tab, choose
 **Site**, then **Run workflow** with **Deploy to GitHub Pages** checked (see
 `.github/workflows/site.yml`). From the command line:
