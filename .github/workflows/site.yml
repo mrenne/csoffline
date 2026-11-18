@@ -1,6 +1,6 @@
 # Builds the site on every push and pull request, so content errors are caught.
-# Deploying to GitHub Pages only happens when started by hand (Actions tab > Site > Run workflow),
-# and needs Pages turned on first: Settings > Pages > Source: GitHub Actions.
+# Deploying to GitHub Pages only happens when started by hand (Actions tab > Site > Run workflow,
+# with "Deploy to GitHub Pages" checked). Pages is set to Source: GitHub Actions.
 name: Site
 
 on:

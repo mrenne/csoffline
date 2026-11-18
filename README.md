@@ -5,7 +5,7 @@
 **CS Offline** is a set of teacher and student resources for teaching computer science with little to no screen usage. Every activity is offline: students use paper, cardboard, cards, dice and, most importantly, each other.
 
 
-> Status: **planning, starting over** (November 2026). Only the decisions below are settled.
+> Status: **live** at https://mrenne.github.io/csoffline/ (since November 2026), with activities still being added.
 
 ## Decided
 
@@ -19,7 +19,7 @@
 
 ## System
 
-CS Offline will be a website where students and educators explore six learning domains through
+CS Offline is a website where students and educators explore six learning domains through
 unplugged activities and resources, some of them games. Each activity has a home domain, and ideas connect activities across domains. See the [system spec](docs/system-spec.md) for the content model,
 site structure, technical design, phases, and open decisions.
 
@@ -43,10 +43,16 @@ message if something is broken:
 npm run build
 ```
 
-The site is **not live**. GitHub Actions builds it on every push, but only deploys when started by
-hand, after GitHub Pages is turned on (see `.github/workflows/site.yml`).
+The site is **live** at https://mrenne.github.io/csoffline/, published with GitHub Pages. GitHub
+Actions builds it on every push but only deploys when started by hand: in the Actions tab, choose
+**Site**, then **Run workflow** with **Deploy to GitHub Pages** checked (see
+`.github/workflows/site.yml`). From the command line:
 
-Current content includes the six domains, 13 ideas, and eight activities, among them
+```bash
+gh workflow run site.yml -R mrenne/csoffline -f deploy=true
+```
+
+Current content includes the six domains, 14 ideas, and nine activities, among them
 **Talent Stack: Data Science Edition** (a card game about data careers) and **Tokens TCG** (an AI
 literacy trading card game).
 
