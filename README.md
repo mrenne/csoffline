@@ -52,7 +52,7 @@ Actions builds it on every push but only deploys when started by hand: in the Ac
 gh workflow run site.yml -R mrenne/csoffline -f deploy=true
 ```
 
-Current content includes the six domains, 16 ideas, and 12 activities, among them
+Current content includes the six domains, 17 ideas, and 13 activities, among them
 **Talent Stack: Data Science Edition** (a card game about data careers) and **Tokens TCG** (an AI
 literacy trading card game).
 
