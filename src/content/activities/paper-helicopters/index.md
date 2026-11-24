@@ -4,7 +4,7 @@ domain: data-science
 summary: "Build a paper helicopter from NASA JPL's Mars Helicopter template, predict how a design change will affect its flight, then test it, collect data, and look for patterns."
 ideas: [sampling, data-visualization, correlation-and-causation, loops]
 activity_type: other
-audience: students
+audience: both
 link: { label: "Download the template (PDF)", url: "https://d2pn8kiwq2w21t.cloudfront.net/documents/paperhelicopter_worksheet.pdf" }
 author:
   name: NASA JPL Education
