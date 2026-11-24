@@ -2,7 +2,7 @@
 name: Passwords and Encryption
 domains: [cybersecurity]
 student_summary: Keeping information secret with passwords, keys, and ciphers.
-related: []
+related: [protecting-data]
 ---
 
 ## What's really going on
