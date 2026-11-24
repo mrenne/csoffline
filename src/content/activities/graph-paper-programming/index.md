@@ -24,6 +24,7 @@ printables:
     paper: letter
     color: both
     copies: "Pages 1–2 for each group, page 3 for each group (one block per program), and page 4 for groups that finish early. Page 5 is the answer key."
+standards: ["E3-ALG-PS-01", "E3-PRO-TR-08", "MS-ALG-PS-03"]
 credits: "Adapted by Mike Renne for CS Offline from Graph Paper Programming, Course D, Code.org (CodeAI), licensed under CC BY-NC-SA 4.0. Changes: new printables with original pictures, a program sheet with space for the robot's drawing, bigger-grid and make-your-own challenges, a shorter-programs challenge that introduces loops, and an answer key with a checked program for every picture."
 notice: "Adapted from Code.org curriculum. CS Offline is not affiliated with or endorsed by Code.org or CodeAI. Code.org and CodeAI names and logos are their trademarks."
 license: "CC BY-NC-SA 4.0"

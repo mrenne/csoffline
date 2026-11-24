@@ -28,9 +28,9 @@ printables:
 variants:
   - name: "Real-world cards"
     summary: "Older or faster groups make a card for an AI tool they actually use, working from its published model card or the maker's help pages, printed by the teacher. Anything they can't find out goes on the card as \"not shared\"."
-standards: ["CSTA MS-ALG-ML-08"]
-credits: "Based on the unplugged example for standard MS-ALG-ML-08 in the 2026 CSTA K–12 Computer Science Standards. Designed by Mike Renne for CS Offline, adding six fictional AI tools with test logs and hidden weaknesses, evidence-based stats, a fold-over card template, patch notes, and the Right Tool for the Job game."
-notice: "The idea comes from the CSTA K–12 Computer Science Standards. CS Offline is not affiliated with or endorsed by the Computer Science Teachers Association. Every AI tool and company in this activity is made up."
+standards: ["MS-ALG-ML-08", "MS-ALG-ML-07", "MS-SOC-ET-40", "MS-DAT-IM-28"]
+credits: "Based on the unplugged example for standard MS-ALG-ML-08 in the 2026 CSTA PK–12 Computer Science Standards. Designed by Mike Renne for CS Offline, adding six fictional AI tools with test logs and hidden weaknesses, evidence-based stats, a fold-over card template, patch notes, and the Right Tool for the Job game."
+notice: "The idea comes from the CSTA PK–12 Computer Science Standards. CS Offline is not affiliated with or endorsed by the Computer Science Teachers Association. Every AI tool and company in this activity is made up."
 license: "CC BY-NC-SA 4.0"
 license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
 status: published

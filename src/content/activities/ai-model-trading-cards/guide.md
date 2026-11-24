@@ -99,5 +99,5 @@ five missions.
 - **Design a test.** Have students write two new tests for a tool that could reveal a weakness
   nobody has checked yet, like FaceKey with sunglasses or ChatPal with a question in another
   language.
-- [The CSTA K–12 Computer Science Standards](https://csteachers.org/pk12standards/) (MS-ALG-ML-08)
+- [The CSTA PK–12 Computer Science Standards](https://csteachers.org/pk12standards/) (MS-ALG-ML-08)
   include this idea and a computer-based version where students test a real classifier.

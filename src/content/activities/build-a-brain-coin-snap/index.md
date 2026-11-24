@@ -26,6 +26,7 @@ printables:
     color: color
     copies: "One board (page 1) per player. Page 2 is the guide."
     source: "https://cs4fndownloads.wordpress.com/build-a-brain-coin-snap/"
+standards: ["MS-ALG-ML-06", "HS-SOC-HU-44"]
 credits: "Created by Peter McOwan and Paul Curzon, Queen Mary University of London, for cs4fn and Teaching London Computing. Developed for the Royal Society Summer Science Exhibition 2016."
 notice: "CS Offline is not affiliated with or endorsed by Queen Mary University of London, cs4fn, or Teaching London Computing."
 license: "CC BY-NC-SA"

@@ -11,6 +11,7 @@ author:
   role: authors
   bio: "This lesson sequence is published in the CodeVA Curriculum Library."
 grade_bands: [9-12]
+standards: ["HS-DAT-DC-22", "HS-DAT-DI-25", "HS-DAT-DI-26"]
 credits: "Published by CodeVA."
 license: "CC BY-NC-SA"
 status: published

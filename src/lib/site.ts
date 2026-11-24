@@ -6,6 +6,7 @@ export const SITE = {
   author: 'Mike Renne',
   authorUrl: 'https://www.linkedin.com/in/michaelrenne/',
   repo: 'https://github.com/mrenne/csoffline',
+  standards: { name: 'CSTA PK–12 Computer Science Standards', url: 'https://csteachers.org/pk12standards/' },
 };
 
 /** A path inside the site, with the GitHub Pages base path in front. Pass paths without the base. */

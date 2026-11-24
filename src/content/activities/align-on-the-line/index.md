@@ -25,6 +25,7 @@ printables:
     paper: letter
     color: both
     copies: "Page 1 for each student. One set of cards (page 2 or 3, or page 4 for your own) for each pair. Page 5 is optional. Page 6 is the class poster, one per class."
+standards: ["MS-SOC-ET-40", "MS-SOC-HU-43", "HS-SOC-HU-43"]
 credits: "Adapted by Mike Renne for CS Offline from Align on the Line: Making Ethical Lines Visible by Beck Tench and Emily Weinstein, AI Pedagogy Project (https://aipedagogy.org/assignment/align-on-the-line-making-ethical-lines-visible/), licensed under CC BY-NC-SA 4.0. The original assignment was created by the Center for Digital Thriving at the Harvard Graduate School of Education, with support from John Templeton Foundation Grant 63220. Changes: new printables, two sample sets of AI uses (an essay and a coding project), blank cards, a roles and skills sheet, a class poster, and an offline version of the live polling variation."
 notice: "Adapted from the AI Pedagogy Project. CS Offline is not affiliated with or endorsed by the AI Pedagogy Project, metaLAB, the Berkman Klein Center, the Center for Digital Thriving, or Harvard University."
 license: "CC BY-NC-SA 4.0"

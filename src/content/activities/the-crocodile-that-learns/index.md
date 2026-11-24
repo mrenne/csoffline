@@ -24,6 +24,7 @@ printables:
     paper: letter
     color: both
     copies: "Pages 1–6 for each pair: rules, board and pieces, three pages of move cards with the learning log, and tokens. Page 7 is the answer key."
+standards: ["MS-ALG-ML-06", "HS-ALG-PS-04"]
 credits: "Adapted by Mike Renne for CS Offline from Beat the Crocodile by Annabel Lindner and Stefan Seegerer (AI Unplugged), used under CC BY-NC 3.0. Their activity builds on cs4fn's Sweet Learning Computer, Martin Gardner's Hexapawn and Donald Michie's MENACE. Changes: a new title, new board, pieces, move cards and paper tokens, colour-and-shape tokens that work in black and white, a rule for when a card runs out of tokens, a learning log and an answer key."
 notice: "Based on Beat the Crocodile by Annabel Lindner and Stefan Seegerer. CS Offline is not affiliated with or endorsed by AI Unplugged."
 license: "CC BY-NC 3.0"

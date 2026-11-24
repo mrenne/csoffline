@@ -6,7 +6,7 @@ import AuthorSection from '../../../components/AuthorSection.astro';
 import Facts from '../../../components/Facts.astro';
 import ActivityCard from '../../../components/ActivityCard.astro';
 import { site, printableUrl, type Activity } from '../../../lib/data';
-import { url, ACTIVITY_TYPE } from '../../../lib/site';
+import { url, ACTIVITY_TYPE, SITE } from '../../../lib/site';
 
 export async function getStaticPaths() {
   const s = await site();
@@ -85,6 +85,7 @@ const COLOR: Record<string, string> = { color: 'Color', bw: 'Black and white', b
           {activity.data.standards.length ? (
             <ul class="chips">{activity.data.standards.map((code) => <li class="chip">{code}</li>)}</ul>
           ) : <p style="margin:0">Not listed yet.</p>}
+          <p class="meta" style="margin:12px 0 0">Standards come from the <a href={SITE.standards.url} rel="noopener">{SITE.standards.name}</a>.</p>
         </div>
         <div class="card">
           <h2 style="font-size:1.25rem">Learning domain</h2>

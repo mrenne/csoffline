@@ -24,7 +24,7 @@ variants:
     summary: "A 20–30 minute whole-class activity with no decks and no winner. Groups place 8–12 cards on a line from Totally Fine to Crosses a Line for one setting, then compare and agree on a class line."
   - name: "Launch Day"
     summary: "A 25–30 minute co-op game. Players are the safety team at an AI company, working together to make AI useful before it drifts out of control or launch day arrives."
-standards: ["CSTA/AI4K12 AI Learning Priorities, Grades 6–8"]
+standards: ["MS-ALG-ML-06", "MS-ALG-ML-07", "MS-ALG-IM-10", "MS-SOC-ET-40"]
 credits: "Discussion Mode is adapted from Align on the Line by Beck Tench & Emily Weinstein (Center for Digital Thriving, AI Pedagogy Project), CC BY-NC-SA 4.0."
 license: "CC BY-NC-SA 4.0"
 license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"

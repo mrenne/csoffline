@@ -25,6 +25,7 @@ printables:
     paper: letter
     color: both
     copies: "One per team"
+standards: ["MS-DAT-DI-26", "MS-DAT-DI-27", "HS-DAT-DI-26"]
 notice: "This is an unofficial educational activity. It is not affiliated with, endorsed by, or sponsored by Nintendo, Creatures Inc., GAME FREAK inc., or The Pokémon Company. Pokémon and the Pokémon Trading Card Game are trademarks of their respective owners."
 license: "CC BY-NC-SA 4.0"
 license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"

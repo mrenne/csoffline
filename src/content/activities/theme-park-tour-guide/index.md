@@ -24,6 +24,7 @@ printables:
     paper: letter
     color: both
     copies: "Pages 1–8 for each student, with two or three route sheets (page 3). Pages 9–10 are the answer key."
+standards: ["MS-ALG-PS-02", "MS-ALG-PS-03", "HS-ALG-PS-03"]
 credits: "Remixed from Tour Guide by Paul Curzon, Queen Mary University of London, for Teaching London Computing, used under CC BY-NC-SA. Changes: a new theme park setting and maps, a draw-the-graph map, a map with no tour, a rule-writing challenge, peer tracing, and a debugging page."
 notice: "Based on Tour Guide by Paul Curzon for Teaching London Computing. CS Offline is not affiliated with or endorsed by Queen Mary University of London or Teaching London Computing."
 license: "CC BY-NC-SA 4.0"

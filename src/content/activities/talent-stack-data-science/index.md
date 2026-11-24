@@ -30,6 +30,7 @@ printables:
     paper: letter
     color: color
     copies: "One per table"
+standards: ["MS-SOC-CE-44"]
 notice: "This edition is a prototype in playtesting. Salaries on the cards are placeholders and haven't been checked against a cited source yet."
 status: published
 ---

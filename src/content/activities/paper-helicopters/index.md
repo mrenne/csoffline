@@ -20,6 +20,7 @@ materials:
   - "A pencil"
   - "Optional: a length of lightweight ribbon, to count spins"
   - "Optional: a stopwatch or timer"
+standards: ["E5-DAT-DI-10", "MS-DAT-DI-27", "HS-DAT-DI-26"]
 credits: "Based on Make a Paper Mars Helicopter by NASA JPL Education."
 notice: "Based on Make a Paper Mars Helicopter by NASA JPL Education. CS Offline is not affiliated with or endorsed by NASA or JPL."
 status: published
